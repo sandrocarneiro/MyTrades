@@ -15,22 +15,22 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Número</th>
+            <th>Data</th>
             <th>Contratos Negociados</th>
-            <th>Ajuste Daytrade</th>
+            <th>Total Líquido</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.ListaNotaCorretagem) {
         <tr>
             <td>
-                @Html.ActionLink(item.Numero, "Editar", new { id = item.ID })                
+                @Html.ActionLink(item.Data.ToString("dd/MM/yyyy"), "Editar", new { id = item.ID })                
             </td>
             <td>
-                @Html.ActionLink(item.ContratosNegociados.ToString(), "Editar", new { id = item.ID })
+                @Html.ActionLink(item.ContratosNegociados.ToString(), "Editar", new { id = item.ID})
             </td>
             <td>
-                @Html.ActionLink(item.AjusteDayTrade.ToString(), "Editar", new { id = item.ID })
+                @Html.ActionLink(item.TotalLiquidoNota.ToString(), "Editar", new { id = item.ID })
             </td>
         </tr>
 }

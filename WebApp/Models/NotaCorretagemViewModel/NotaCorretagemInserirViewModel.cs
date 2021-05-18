@@ -15,13 +15,10 @@ namespace WebApp.Models.NotaCorretagemViewModel
 
         public NotaCorretagem Instanciar()
         {
-            return new NotaCorretagem()
-            {
-                Numero = this.Numero,
-                Data = Convert.ToDateTime(this.Data),
-                ContratosNegociados = int.Parse(this.ContratosNegociados),
-                AjusteDayTrade = Decimal.Parse(this.AjusteDayTrade)
-            };
+            return new NotaCorretagem(this.Numero,
+                                      Convert.ToDateTime(this.Data),
+                                      int.Parse(this.ContratosNegociados),
+                                      Decimal.Parse(this.AjusteDayTrade));            
         }
     }
 }
