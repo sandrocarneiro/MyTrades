@@ -4,12 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dominio.Entidades;
 using Microsoft.AspNetCore.Mvc;
+using ServicoAplicacao.NotaCorretagemServicoAplicacao;
 using WebApp.Models.NotaCorretagemViewModel;
 
 namespace WebApp.Controllers
 {
     public class NotaCorretagemController : Controller
     {
+        private NotaCorretagemServico NotaCorretagemServico;
+
+        public NotaCorretagemController()
+        {
+            this.NotaCorretagemServico = new NotaCorretagemServico();
+        }
+
         public IActionResult Index()
         {
             try
@@ -25,6 +33,29 @@ namespace WebApp.Controllers
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Inserir()
+        {
+            NotaCorretagemInserirViewModel viewModel = new NotaCorretagemInserirViewModel();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Inserir(NotaCorretagemInserirViewModel viewModel)
+        {
+            try
+            {
+                NotaCorretagem nota = viewModel.Instanciar();
+                this.NotaCorretagemServico.Inserir(nota);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
             }
         }
     }
