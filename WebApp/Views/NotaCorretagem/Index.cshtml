@@ -9,7 +9,7 @@
 
 <p>
     <div class="col-xl-2 col-lg-4">
-        @Html.ActionLink("Inserir novo", "Inserir", "NotaCorretagem", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Inserir", "Inserir", "NotaCorretagem", null, new { @class = "btn btn-primary" })
     </div>
 </p>
 <table class="table">
@@ -24,8 +24,12 @@
 @foreach (var item in Model.ListaNotaCorretagem) {
         <tr>
             <td>
-                @Html.ActionLink(item.Numero, "Editar", new { id = item.ID })
+                @Html.ActionLink(item.Numero, "Editar", new { id = item.ID })                
+            </td>
+            <td>
                 @Html.ActionLink(item.ContratosNegociados.ToString(), "Editar", new { id = item.ID })
+            </td>
+            <td>
                 @Html.ActionLink(item.AjusteDayTrade.ToString(), "Editar", new { id = item.ID })
             </td>
         </tr>

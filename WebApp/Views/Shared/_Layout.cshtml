@@ -43,6 +43,32 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/Inputmask-2.x/dist/min/jquery.inputmask.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+<script>
+    $(document).ready(function () {
+        $(":input").inputmask();
+    });
+
+    $(document).ready(function () {
+        $('.format-Data').mask("00/00/0000", { placeholder: "__/__/____" });;
+    });
+
+    $(document).ready(function () {
+        $('.format-hhmmss').mask("00:00:00", { placeholder: "hh:mm:ss" });;
+    });
+
+    $(document).ready(function () {
+        $('.format-mmss').mask("00:00", { placeholder: "__:__" });;
+    });
+</script>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        $('.alert').alert();
+    });
+</script>

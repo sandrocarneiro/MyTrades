@@ -20,7 +20,7 @@ namespace WebApp.Models.NotaCorretagemViewModel
                 Numero = this.Numero,
                 Data = Convert.ToDateTime(this.Data),
                 ContratosNegociados = int.Parse(this.ContratosNegociados),
-                AjusteDayTrade = int.Parse(this.AjusteDayTrade)
+                AjusteDayTrade = Decimal.Parse(this.AjusteDayTrade)
             };
         }
     }

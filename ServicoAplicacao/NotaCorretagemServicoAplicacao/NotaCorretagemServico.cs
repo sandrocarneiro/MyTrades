@@ -20,5 +20,9 @@ namespace ServicoAplicacao.NotaCorretagemServicoAplicacao
             this.ColecaoNotaCorretagem.Inserir(notaCorretagem);
         }
 
+        public List<NotaCorretagem> ObterNotaCorretagem()
+        {
+            return this.ColecaoNotaCorretagem.Obter();
+        }
     }
 }
