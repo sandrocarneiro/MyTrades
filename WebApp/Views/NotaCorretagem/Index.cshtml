@@ -1,0 +1,34 @@
+﻿@model WebApp.Models.NotaCorretagemViewModel.NotaCorretagemIndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Cadastro de Nota de Corretagem</h1>
+
+<p>
+    <div class="col-xl-2 col-lg-4">
+        @Html.ActionLink("Inserir novo", "Inserir", "NotaCorretagem", null, new { @class = "btn btn-primary" })
+    </div>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Número</th>
+            <th>Contratos Negociados</th>
+            <th>Ajuste Daytrade</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ListaNotaCorretagem) {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Numero, "Editar", new { id = item.ID })
+                @Html.ActionLink(item.ContratosNegociados.ToString(), "Editar", new { id = item.ID })
+                @Html.ActionLink(item.AjusteDayTrade.ToString(), "Editar", new { id = item.ID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
