@@ -16,21 +16,21 @@
     <thead>
         <tr>
             <th class="text-center">Data</th>
-            <th class="text-right">Contratos Negociados</th>
-            <th class="text-right">Total Líquido</th>
+            <th class="text-right">Total Líquido (R$)</th>
+            <th class="text-right">Saldo Corretora (R$)</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.ListaNotaCorretagem) {
         <tr>
             <td class="text-center">
-                @Html.ActionLink(item.Data.ToString("dd/MM/yyyy"), "Editar", new { id = item.ID })                
-            </td>
-            <td class="text-right">
-                @Html.ActionLink(item.ContratosNegociados.ToString(), "Editar", new { id = item.ID})
+                @Html.ActionLink(item.Data.ToString("dd/MM/yyyy"), "Editar", new { id = item.ID })
             </td>
             <td class="text-right">
                 @Html.ActionLink(item.TotalLiquidoNota.ToString(), "Editar", new { id = item.ID })
+            </td>
+            <td class="text-right">
+                @Html.ActionLink(item.SaldoCorretora.ToString(), "Editar", new { id = item.ID })
             </td>
         </tr>
 }

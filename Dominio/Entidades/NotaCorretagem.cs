@@ -24,6 +24,12 @@ namespace Dominio.Entidades
                 return this.TaxaOperacional + this.TaxaRegistro + this.TaxasBMF;
             }
         }
+
+        public void AtualizarSaldoCorretora(NotaCorretagem notaAnterior)
+        {
+            this.SaldoCorretora = notaAnterior.SaldoCorretora + this.TotalLiquidoNota;
+        }
+
         public decimal TotalLiquido
         {
             get
@@ -38,7 +44,6 @@ namespace Dominio.Entidades
                 return this.TaxaOperacional + this.TaxaRegistro + this.TaxasBMF + this.AjusteDayTrade + this.IRRF;
             }
         }
-
         public decimal TotalLiquidoNota
         {
             get
@@ -46,7 +51,7 @@ namespace Dominio.Entidades
                 return this.TotalContaNormal + this.ISS;
             }
         }
-
+        public decimal SaldoCorretora { get; set; }
         public NotaCorretagem(string numero,
                               DateTime data,
                               int contratosNegociados,
