@@ -36,6 +36,7 @@ namespace WebApp.Controllers
         public ActionResult Inserir()
         {
             NotaCorretagemInserirViewModel viewModel = new NotaCorretagemInserirViewModel();
+            viewModel.Data = System.DateTime.Now.ToString("dd/MM/yyyy");
             return View(viewModel);
         }
 

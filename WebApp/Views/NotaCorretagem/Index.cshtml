@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Cadastro de Nota de Corretagem</h1>
+<h1>Notas de Corretagem</h1>
 
 <p>
     <div class="col-xl-2 col-lg-4">
@@ -15,21 +15,21 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Data</th>
-            <th>Contratos Negociados</th>
-            <th>Total Líquido</th>
+            <th class="text-center">Data</th>
+            <th class="text-right">Contratos Negociados</th>
+            <th class="text-right">Total Líquido</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.ListaNotaCorretagem) {
         <tr>
-            <td>
+            <td class="text-center">
                 @Html.ActionLink(item.Data.ToString("dd/MM/yyyy"), "Editar", new { id = item.ID })                
             </td>
-            <td>
+            <td class="text-right">
                 @Html.ActionLink(item.ContratosNegociados.ToString(), "Editar", new { id = item.ID})
             </td>
-            <td>
+            <td class="text-right">
                 @Html.ActionLink(item.TotalLiquidoNota.ToString(), "Editar", new { id = item.ID })
             </td>
         </tr>

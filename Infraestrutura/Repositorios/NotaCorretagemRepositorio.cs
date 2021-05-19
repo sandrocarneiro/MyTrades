@@ -20,14 +20,15 @@ namespace Infraestrutura.Repositorios
         public void Inserir(NotaCorretagem notaCorretagem)
         {
             try
-            {     
+            {
                 SqlCommand cmd = new SqlCommand(
-                    "INSERT INTO NotaCorretagem "+
+                    "INSERT INTO NotaCorretagem " +
                     "(Numero, Data, ContratosNegociados, AjusteDayTrade, TaxaRegistro, TaxasBMF, TaxaOperacional, IRRF, ISS) " +
-                    "values("+
-                    "@Numero, @Data, @ContratosNegociados, @AjusteDayTrade, @TaxaRegistro, @TaxasBMF, @TaxaOperacional, @IRRF, @ISS)", 
+                    "values(" +
+                    "@Numero, @Data, @ContratosNegociados, @AjusteDayTrade, @TaxaRegistro, @TaxasBMF, @TaxaOperacional, @IRRF, @ISS)",
                     this.SqlConn);
-                cmd.Parameters.AddWithValue("@Numero", notaCorretagem.Numero);
+
+                cmd.Parameters.AddWithValue("@Numero", notaCorretagem.Numero == null ? DBNull.Value.ToString() : notaCorretagem.Numero);
                 cmd.Parameters.AddWithValue("@Data", notaCorretagem.Data);
                 cmd.Parameters.AddWithValue("@ContratosNegociados", notaCorretagem.ContratosNegociados);
                 cmd.Parameters.AddWithValue("@AjusteDayTrade", notaCorretagem.AjusteDayTrade);
