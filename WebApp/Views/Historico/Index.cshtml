@@ -1,0 +1,39 @@
+﻿@model WebApp.Models.HistoricoIndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Histórico</h1>
+
+<p>
+    <div class="col-xl-2 col-lg-4">
+        @Html.ActionLink("Inserir Nota", "Inserir", "NotaCorretagem", null, new { @class = "btn btn-primary" })
+    </div>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center">Data</th>
+            <th class="text-right">Valor (R$)</th>
+            <th class="text-right">Saldo Corretora (R$)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ListaHistorico)
+        {
+            <tr>
+                <td class="text-center">
+                    @Html.ActionLink(item.Data.ToString("dd/MM/yyyy"), "Editar", new { id = item.ID })
+                </td>
+                <td class="text-right">
+                    @Html.ActionLink(item.Valor.ToString(), "Editar", new { id = item.ID })
+                </td>
+                <td class="text-right">
+                    @Html.ActionLink(item.SaldoCorretora.ToString(), "Editar", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

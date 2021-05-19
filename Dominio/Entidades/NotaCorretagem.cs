@@ -51,7 +51,6 @@ namespace Dominio.Entidades
                 return this.TotalContaNormal + this.ISS;
             }
         }
-        public decimal SaldoCorretora { get; set; }
         public NotaCorretagem(string numero,
                               DateTime data,
                               int contratosNegociados,

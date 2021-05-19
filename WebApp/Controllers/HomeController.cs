@@ -20,7 +20,7 @@ namespace WebApp.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "NotaCorretagem");
+            return RedirectToAction("Index", "Historico");
         }
 
         public IActionResult Privacy()

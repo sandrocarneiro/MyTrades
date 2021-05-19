@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dominio.Entidades;
 using Microsoft.AspNetCore.Mvc;
-using ServicoAplicacao.NotaCorretagemServicoAplicacao;
+using ServicoAplicacao;
 using WebApp.Models.NotaCorretagemViewModel;
 
 namespace WebApp.Controllers
@@ -47,7 +47,7 @@ namespace WebApp.Controllers
             try
             {
                 this.NotaCorretagemServico.Inserir(viewModel.Instanciar());
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Historico");
             }
             catch (Exception ex)
             {
