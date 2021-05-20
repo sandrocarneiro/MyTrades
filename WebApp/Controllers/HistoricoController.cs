@@ -21,7 +21,7 @@ namespace WebApp.Controllers
         {
             try
             {
-                List<Historico> lista = this.HistoricoServico.ObterNotaCorretagem();
+                List<Historico> lista = this.HistoricoServico.ObterNotaCorretagem().OrderByDescending(x => x.Data).ToList();
                 HistoricoIndexViewModel viewModel = new HistoricoIndexViewModel(lista);
                 return View(viewModel);
             }

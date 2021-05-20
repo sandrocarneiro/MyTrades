@@ -1,7 +1,7 @@
 ﻿@model WebApp.Models.HistoricoIndexViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Histórico";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -25,13 +25,24 @@
         {
             <tr>
                 <td class="text-center">
-                    @Html.ActionLink(item.Data.ToString("dd/MM/yyyy"), "Editar", new { id = item.Data })
+                    @Html.Label(item.Data.ToString("dd/MM/yyyy"))
                 </td>
                 <td class="text-right">
-                    @Html.ActionLink(item.Valor.ToString(), "Editar", new { id = item.Data })
+                    @if (item.Valor < 0)
+                    {
+                        <div style="color:red">
+                            @Html.Label(item.Valor.ToString())
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="color:black">
+                            @Html.Label(item.Valor.ToString())
+                        </div>
+                    }
                 </td>
                 <td class="text-right">
-                    @Html.ActionLink(item.SaldoCorretora.ToString(), "Editar", new { id = item.Data })
+                    @Html.Label(item.SaldoCorretora.ToString())
                 </td>
             </tr>
         }
