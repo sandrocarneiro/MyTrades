@@ -6,7 +6,6 @@ namespace Dominio.Entidades
 {
     public class Historico
     {
-        public int ID { get; set; }
         public DateTime Data { get; set; }
         public decimal Valor { get; set; }
         public decimal SaldoCorretora { get; set; }

@@ -25,11 +25,6 @@ namespace Dominio.Entidades
             }
         }
 
-        public void AtualizarSaldoCorretora(NotaCorretagem notaAnterior)
-        {
-            this.SaldoCorretora = notaAnterior.SaldoCorretora + this.TotalLiquidoNota;
-        }
-
         public decimal TotalLiquido
         {
             get

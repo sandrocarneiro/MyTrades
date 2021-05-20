@@ -15,13 +15,12 @@ namespace Infraestrutura.Repositorios
             this.ConnectionString = "workstation id = mytrade.mssql.somee.com; packet size = 4096; user id = scarneiro_SQLLogin_1; pwd = j9ydgujmxa; data source = mytrade.mssql.somee.com; persist security info = False; initial catalog = mytrade";
         }
 
-        public List<NotaCorretagem> ObterNotasAnteriores(DateTime data)
+        public List<NotaCorretagem> ObterHistorico(DateTime dataInicio)
         {
             this.SqlConn = new SqlConnection(ConnectionString);
             this.SqlConn.Open();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM NotaCorretagem", this.SqlConn);
-            //cmd.Parameters.AddWithValue("@Data", data);
-            // ToDo: otimizar retornando apenas a partir da nota anterior
+            SqlCommand cmd = new SqlCommand("SELECT * FROM NotaCorretagem WHERE Data >= @dataInicio", this.SqlConn);
+            cmd.Parameters.AddWithValue("@dataInicio", dataInicio);
             SqlDataReader dr = cmd.ExecuteReader();
 
             List<NotaCorretagem> lista = new List<NotaCorretagem>();
@@ -39,13 +38,48 @@ namespace Infraestrutura.Repositorios
                     TaxasBMF = Decimal.Parse(dr["TaxasBMF"].ToString()),
                     TaxaOperacional = Decimal.Parse(dr["TaxaOperacional"].ToString()),
                     IRRF = Decimal.Parse(dr["IRRF"].ToString()),
-                    ISS = Decimal.Parse(dr["ISS"].ToString()),
-                    SaldoCorretora = dr["SaldoCorretora"].ToString() == "" ? 0 : Decimal.Parse(dr["SaldoCorretora"].ToString())
+                    ISS = Decimal.Parse(dr["ISS"].ToString())
                 });
             }
             dr.Close();
             this.SqlConn.Close();
             return lista;
+        }
+
+        public NotaCorretagem ObterNotaAnterior(DateTime data)
+        {
+            this.SqlConn = new SqlConnection(ConnectionString);
+            this.SqlConn.Open();
+            SqlCommand cmd = new SqlCommand("SELECT TOP 1 * FROM NotaCorretagem WHERE Data < @Data order by Data desc ", this.SqlConn);
+            cmd.Parameters.AddWithValue("@Data", data);
+            SqlDataReader dr = cmd.ExecuteReader();
+        
+            if (dr.Read())
+            {
+                NotaCorretagem nota = new NotaCorretagem()
+                {
+                    ID = int.Parse(dr["ID"].ToString()),
+                    Numero = dr["Numero"].ToString(),
+                    Data = dr["Data"] == System.DBNull.Value ? new DateTime() : Convert.ToDateTime(dr["Data"].ToString()),
+                    ContratosNegociados = int.Parse(dr["ContratosNegociados"].ToString()),
+                    AjusteDayTrade = Decimal.Parse(dr["AjusteDayTrade"].ToString()),
+                    TaxaRegistro = Decimal.Parse(dr["TaxaRegistro"].ToString()),
+                    TaxasBMF = Decimal.Parse(dr["TaxasBMF"].ToString()),
+                    TaxaOperacional = Decimal.Parse(dr["TaxaOperacional"].ToString()),
+                    IRRF = Decimal.Parse(dr["IRRF"].ToString()),
+                    ISS = Decimal.Parse(dr["ISS"].ToString())
+                };
+                dr.Close();
+                this.SqlConn.Close();
+                return nota;
+            }
+            else
+            {
+                dr.Close();
+                this.SqlConn.Close();
+                return null;
+            }
+            
         }
 
         public void Atualizar(List<NotaCorretagem> notasAnteriores)
@@ -61,9 +95,9 @@ namespace Infraestrutura.Repositorios
                 this.SqlConn.Open();
                 SqlCommand cmd = new SqlCommand(
                     "INSERT INTO NotaCorretagem " +
-                    "(Numero, Data, ContratosNegociados, AjusteDayTrade, TaxaRegistro, TaxasBMF, TaxaOperacional, IRRF, ISS, SaldoCorretora) " +
+                    "(Numero, Data, ContratosNegociados, AjusteDayTrade, TaxaRegistro, TaxasBMF, TaxaOperacional, IRRF, ISS) " +
                     "values(" +
-                    "@Numero, @Data, @ContratosNegociados, @AjusteDayTrade, @TaxaRegistro, @TaxasBMF, @TaxaOperacional, @IRRF, @ISS, @SaldoCorretora)",
+                    "@Numero, @Data, @ContratosNegociados, @AjusteDayTrade, @TaxaRegistro, @TaxasBMF, @TaxaOperacional, @IRRF, @ISS)",
                     this.SqlConn);
 
                 cmd.Parameters.AddWithValue("@Numero", notaCorretagem.Numero == null ? DBNull.Value.ToString() : notaCorretagem.Numero);
@@ -75,7 +109,6 @@ namespace Infraestrutura.Repositorios
                 cmd.Parameters.AddWithValue("@TaxaOperacional", notaCorretagem.TaxaOperacional);
                 cmd.Parameters.AddWithValue("@IRRF", notaCorretagem.IRRF);
                 cmd.Parameters.AddWithValue("@ISS", notaCorretagem.ISS);
-                cmd.Parameters.AddWithValue("@SaldoCorretora", notaCorretagem.SaldoCorretora);
 
                 cmd.ExecuteNonQuery();
                 this.SqlConn.Close();
@@ -108,8 +141,7 @@ namespace Infraestrutura.Repositorios
                     TaxasBMF = Decimal.Parse(dr["TaxasBMF"].ToString()),
                     TaxaOperacional = Decimal.Parse(dr["TaxaOperacional"].ToString()),
                     IRRF = Decimal.Parse(dr["IRRF"].ToString()),
-                    ISS = Decimal.Parse(dr["ISS"].ToString()),
-                    SaldoCorretora = dr["SaldoCorretora"].ToString() == "" ? 0 : Decimal.Parse(dr["SaldoCorretora"].ToString())
+                    ISS = Decimal.Parse(dr["ISS"].ToString())
                 });
             }
             dr.Close();

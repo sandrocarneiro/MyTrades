@@ -37,5 +37,10 @@ namespace Infraestrutura.Repositorios
             this.SqlConn.Close();
             return lista;
         }
+
+        public void Atualizar(List<Historico> historico)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
