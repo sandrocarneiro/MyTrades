@@ -32,7 +32,7 @@ namespace Infraestrutura.Repositorios
                 {
                     ID = int.Parse(dr["ID"].ToString()),
                     Data = dr["Data"] == System.DBNull.Value ? new DateTime() : Convert.ToDateTime(dr["Data"].ToString()),
-                    Valor = int.Parse(dr["Valor"].ToString())
+                    Valor = Decimal.Parse(dr["Valor"].ToString())
                 });
             }
             dr.Close();

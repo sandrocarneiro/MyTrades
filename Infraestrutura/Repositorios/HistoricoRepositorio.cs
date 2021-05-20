@@ -37,10 +37,30 @@ namespace Infraestrutura.Repositorios
             this.SqlConn.Close();
             return lista;
         }
-
-        public void Atualizar(List<Historico> historico)
+        public void Atualizar(List<Historico> listaHistorico)
         {
-            throw new NotImplementedException();
+            try
+            {
+                this.SqlConn = new SqlConnection(ConnectionString);
+                SqlCommand cmd = new SqlCommand("delete from Historico", this.SqlConn);
+                this.SqlConn.Open();
+                cmd.ExecuteNonQuery();
+
+                foreach (Historico item in listaHistorico)
+                {
+                    cmd = new SqlCommand("INSERT INTO Historico (Data, Valor, SaldoCorretora) " +
+                                         "values(@Data, @Valor, @SaldoCorretora)", this.SqlConn);
+                    cmd.Parameters.AddWithValue("@Data", item.Data);
+                    cmd.Parameters.AddWithValue("@Valor", item.Valor);
+                    cmd.Parameters.AddWithValue("@SaldoCorretora", item.SaldoCorretora);
+                    cmd.ExecuteNonQuery();
+                }
+                this.SqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -21,7 +21,8 @@ namespace Dominio.Servicos
             decimal saldo = 0;
             foreach (Historico nota in historico.OrderBy(x => x.Data))
             {
-                nota.SaldoCorretora = saldo + nota.Valor;
+                saldo += nota.Valor;
+                nota.SaldoCorretora = saldo;
             }
 
             return historico.ToList().OrderBy(x => x.Data).ToList();
