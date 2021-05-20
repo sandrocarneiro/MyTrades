@@ -30,19 +30,23 @@
                 <td class="text-right">
                     @if (item.Valor < 0)
                     {
-                        <div style="color:red">
-                            @Html.Label(item.Valor.ToString())
-                        </div>
+                    <div style="color:red">
+                        @*@Html.DisplayText(String.Format("{0:0.00}", item.Valor))*@
+                        @Html.ActionLink(item.Valor.ToString(), "Editar", new { id = item.Data })
+                    </div>
                     }
                     else
                     {
-                        <div style="color:black">
-                            @Html.Label(item.Valor.ToString())
-                        </div>
+                <div style="color:black">
+                    @*@Html.DisplayText(String.Format("{0:0.00}", item.Valor))*@
+                    @Html.ActionLink(item.Valor.ToString(), "Editar", new { id = item.Data })
+                </div>
                     }
                 </td>
                 <td class="text-right">
-                    @Html.Label(item.SaldoCorretora.ToString())
+                    @*@Html.DisplayText(String.Format("{0:0.00}", item.SaldoCorretora))*@
+                    @Html.ActionLink(item.SaldoCorretora.ToString(), "Editar", new { id = item.Data })
+
                 </td>
             </tr>
         }
