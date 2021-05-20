@@ -15,6 +15,29 @@ namespace Infraestrutura.Repositorios
             this.ConnectionString = "workstation id = mytrade.mssql.somee.com; packet size = 4096; user id = scarneiro_SQLLogin_1; pwd = j9ydgujmxa; data source = mytrade.mssql.somee.com; persist security info = False; initial catalog = mytrade";
         }
 
+        public void Inserir(MovimentacaoContaCorrente movimentacaoCC)
+        {
+            try
+            {
+                this.SqlConn = new SqlConnection(ConnectionString);
+                this.SqlConn.Open();
+                SqlCommand cmd = new SqlCommand(
+                    "INSERT INTO MovimentacaoContaCorrente " +
+                    "(Data, Valor) " +
+                    "values(" +
+                    "@Data, @Valor)",
+                    this.SqlConn);
+
+                cmd.Parameters.AddWithValue("@Data", movimentacaoCC.Data);
+                cmd.Parameters.AddWithValue("@Valor", movimentacaoCC.Valor);
+                cmd.ExecuteNonQuery();
+                this.SqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         public List<MovimentacaoContaCorrente> ObterHistorico(DateTime dataInicio)
         {

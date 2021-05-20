@@ -37,7 +37,7 @@ namespace Infraestrutura.Repositorios
                     TaxaRegistro = Decimal.Parse(dr["TaxaRegistro"].ToString()),
                     TaxasBMF = Decimal.Parse(dr["TaxasBMF"].ToString()),
                     TaxaOperacional = Decimal.Parse(dr["TaxaOperacional"].ToString()),
-                    IRRF = Decimal.Parse(dr["IRRF"].ToString()),
+                    IRRF = dr["IRRF"].ToString() == "" ? 0 : Decimal.Parse(dr["IRRF"].ToString()),
                     ISS = Decimal.Parse(dr["ISS"].ToString())
                 });
             }
