@@ -12,10 +12,10 @@ namespace Dominio.Servicos
                                            List<MovimentacaoContaCorrente> movimentacaoCC)
         {
             List<Historico> historico = listaNotasPosteriores
-                                            .Select(x => new Historico { Data = x.Data, Valor = x.TotalLiquidoNota })
+                                            .Select(x => new Historico { Data = x.Data, Tipo = "NC", Valor = x.TotalLiquidoNota })
                                             .ToList();
             
-            historico.AddRange(movimentacaoCC.Select(x => new Historico { Data = x.Data, Valor = x.Valor })
+            historico.AddRange(movimentacaoCC.Select(x => new Historico { Data = x.Data, Tipo = "CC", Valor = x.Valor })
                                              .ToList());
 
             decimal saldo = 0;

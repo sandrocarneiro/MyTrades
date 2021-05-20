@@ -48,9 +48,10 @@ namespace Infraestrutura.Repositorios
 
                 foreach (Historico item in listaHistorico)
                 {
-                    cmd = new SqlCommand("INSERT INTO Historico (Data, Valor, SaldoCorretora) " +
-                                         "values(@Data, @Valor, @SaldoCorretora)", this.SqlConn);
+                    cmd = new SqlCommand("INSERT INTO Historico (Data, Tipo, Valor, SaldoCorretora) " +
+                                         "values(@Data, @Tipo, @Valor, @SaldoCorretora)", this.SqlConn);
                     cmd.Parameters.AddWithValue("@Data", item.Data);
+                    cmd.Parameters.AddWithValue("@Tipo", item.Tipo);
                     cmd.Parameters.AddWithValue("@Valor", item.Valor);
                     cmd.Parameters.AddWithValue("@SaldoCorretora", item.SaldoCorretora);
                     cmd.ExecuteNonQuery();
