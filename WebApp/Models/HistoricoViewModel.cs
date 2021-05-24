@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,9 +17,9 @@ namespace WebApp.Models
         {
             this.Data = data.ToString("dd/MM/yyyy");
             this.Tipo = tipo;
-            this.Valor = String.Format("{0:0.00}", valor);
+            this.Valor = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", valor);
             this.Negativo = valor < 0 ? true : false;
-            this.SaldoCorretora = String.Format("{0:0.00}", saldoCorretora);
+            this.SaldoCorretora = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", saldoCorretora);
         }
     }
 }
