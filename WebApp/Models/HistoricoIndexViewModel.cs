@@ -8,10 +8,10 @@ namespace WebApp.Models
 {
     public class HistoricoIndexViewModel
     {
-        public List<Historico> ListaHistorico { get; set; }
+        public List<HistoricoViewModel> ListaHistoricoViewModel { get; set; }
         public HistoricoIndexViewModel(List<Historico> lista)
         {
-            this.ListaHistorico = lista;
+            this.ListaHistoricoViewModel = lista.Select(x => new HistoricoViewModel(x.Data, x.Tipo, x.Valor, x.SaldoCorretora)).ToList();
         }
     }
 }
