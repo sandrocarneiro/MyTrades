@@ -18,20 +18,6 @@ namespace WebApp.Controllers
             this.NotaCorretagemServico = new NotaCorretagemServico();
         }
 
-        public IActionResult Index()
-        {
-            try
-            {
-                List<NotaCorretagem> lista = this.NotaCorretagemServico.ObterNotaCorretagem();
-                NotaCorretagemIndexViewModel viewModel = new NotaCorretagemIndexViewModel(lista);
-                return View(viewModel);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         [HttpGet]
         public ActionResult Inserir()
         {

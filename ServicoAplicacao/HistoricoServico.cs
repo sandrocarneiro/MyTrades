@@ -13,7 +13,7 @@ namespace ServicoAplicacao
         {
             this.ColecaoHistorico = new HistoricoRepositorio();
         }
-        public List<Historico> ObterNotaCorretagem()
+        public List<Historico> Obter()
         {
             return this.ColecaoHistorico.Obter();
         }

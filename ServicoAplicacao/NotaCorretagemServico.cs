@@ -30,10 +30,5 @@ namespace ServicoAplicacao
             List<Historico> historico = this.HistoricoServicoDominio.Reconstruir(listaNotas, listaMovimentacaoCC);
             ColecaoHistorico.Atualizar(historico);
         }
-
-        public List<NotaCorretagem> ObterNotaCorretagem()
-        {
-            return this.ColecaoNotaCorretagem.Obter();
-        }
     }
 }
