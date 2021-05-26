@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace WebApp.Models
 {
-    public class HistoricoIndexViewModel
+    public class ResumoDiarioViewModel
     {
         public List<HistoricoViewModel> ListaHistoricoViewModel { get; set; }
-        public HistoricoIndexViewModel(List<Historico> lista)
+        public ResumoDiarioViewModel(List<Historico> lista)
         {
             this.ListaHistoricoViewModel = lista.Select(x => new HistoricoViewModel(x.Data, x.Tipo, x.Valor, x.SaldoCorretora)).ToList();
         }

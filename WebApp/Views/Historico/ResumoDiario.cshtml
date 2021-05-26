@@ -1,4 +1,4 @@
-﻿@model WebApp.Models.HistoricoIndexViewModel
+﻿@model WebApp.Models.ResumoDiarioViewModel
 
 @{
     ViewData["Title"] = "Histórico";
@@ -7,11 +7,19 @@
 
 <h1>Histórico</h1>
 
-<p>
-    <div class="col-xl-2 col-lg-4">
-        @Html.ActionLink("Inserir Nota", "Inserir", "NotaCorretagem", null, new { @class = "btn btn-primary" })
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-10">
+            @Html.ActionLink("Inserir Nota", "Inserir", "NotaCorretagem", null, new { @class = "btn btn-primary" })
+        </div>
+        <div class="col-2">
+            @Html.ActionLink("Resumo Mensal", "ResumoMensal", "Historico", null)
+        </div>
     </div>
-</p>
+    <div class="row">
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -32,20 +40,17 @@
                     {
                         <div style="color:red">
                             @Html.Label(item.Valor)
-                            @*@Html.ActionLink(item.Valor, "Editar", new { id = item.Data })*@
                         </div>
                     }
                     else
                     {
                         <div style="color:black">
                             @Html.Label(item.Valor)
-                            @*@Html.ActionLink(item.Valor, "Editar", new { id = item.Data })*@
                         </div>
                     }
                 </td>
                 <td class="text-right">
                     @Html.Label(item.SaldoCorretora)
-                    @*@Html.ActionLink(item.SaldoCorretora, "Editar", new { id = item.Data })*@
 
                 </td>
             </tr>

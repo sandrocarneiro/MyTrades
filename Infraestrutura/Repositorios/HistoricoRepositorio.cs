@@ -17,6 +17,12 @@ namespace Infraestrutura.Repositorios
             return this.UnidadeTrabalho.CriarColecaoHistorico()
                                         .ToList();
         }
+        public List<Historico> Obter(string periodo)
+        {
+            return this.UnidadeTrabalho.CriarColecaoHistorico()
+                                        .Where(x => x.Periodo == periodo )
+                                        .ToList();
+        }
         public void Atualizar(List<Historico> listaHistorico)
         {
             this.UnidadeTrabalho.Atualizar(listaHistorico);

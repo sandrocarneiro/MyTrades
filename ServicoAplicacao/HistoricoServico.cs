@@ -13,10 +13,14 @@ namespace ServicoAplicacao
         {
             this.ColecaoHistorico = new HistoricoRepositorio();
         }
+        public List<Historico> Obter(string periodo)
+        {
+            return this.ColecaoHistorico.Obter(periodo);
+        }
+
         public List<Historico> Obter()
         {
             return this.ColecaoHistorico.Obter();
         }
-
     }
 }

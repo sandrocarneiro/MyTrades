@@ -17,12 +17,28 @@ namespace WebApp.Controllers
         {
             this.HistoricoServico = new HistoricoServico();
         }
-        public IActionResult Index()
+        public IActionResult ResumoMensal()
         {
             try
             {
                 List<Historico> lista = this.HistoricoServico.Obter().OrderByDescending(x => x.Data).ToList();
-                HistoricoIndexViewModel viewModel = new HistoricoIndexViewModel(lista);
+                var visaoMensal = lista.GroupBy(x => new { x.Data.Year, x.Data.Month })
+                                        .Select(g => new ResumoMensalViewModel(g.Key.Year, g.Key.Month, g.Sum(s => s.Valor)))
+                                        .OrderByDescending(x => x.Ano).ThenByDescending(x => x.Mes)
+                                        .ToList();
+                return View(visaoMensal);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public IActionResult ResumoDiario(string id)
+        {
+            try
+            {
+                List<Historico> lista = this.HistoricoServico.Obter(id).OrderByDescending(x => x.Data).ToList();
+                ResumoDiarioViewModel viewModel = new ResumoDiarioViewModel(lista);
                 return View(viewModel);
             }
             catch (Exception ex)
@@ -30,5 +46,6 @@ namespace WebApp.Controllers
                 throw ex;
             }
         }
+
     }
 }

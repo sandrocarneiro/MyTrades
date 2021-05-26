@@ -12,34 +12,35 @@
         <form asp-action="Inserir">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-            <label asp-for="Numero" class="control-label">Número</label>
-            @Html.TextBoxFor(d => d.Numero, new { @class = "form-control" })
-            <span asp-validation-for="Numero" class="text-danger"></span>
+                <label asp-for="Numero" class="control-label">Número</label>
+                @Html.TextBoxFor(d => d.Numero, new { @class = "form-control" })
+                <span asp-validation-for="Numero" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Data" class="control-label">Data</label>
+                @Html.TextBoxFor(d => d.Data, new { @class = "form-control", @data_inputmask = "'mask': '99/99/9999', 'placeholder': '__/__/____', 'insertMode': false, 'clearMaskOnLostFocus': true, 'removeMaskOnSubmit': true " })
+                <span asp-validation-for="Data" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContratosNegociados" class="control-label">Contratos Negociados</label>
+                @Html.TextBoxFor(d => d.ContratosNegociados, new { @class = "form-control", @type = "number", @style = "text-align:right" })
+                <span asp-validation-for="ContratosNegociados" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AjusteDayTrade" class="control-label">Ajuste DayTrade</label>
+                @Html.TextBoxFor(d => d.AjusteDayTrade, new { @class = "form-control", @type = "number", @style = "text-align:right" })
+                <span asp-validation-for="AjusteDayTrade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Data" class="control-label">Data</label>
-        @Html.TextBoxFor(d => d.Data, new { @class = "form-control", @data_inputmask = "'mask': '99/99/9999', 'placeholder': '__/__/____', 'insertMode': false, 'clearMaskOnLostFocus': true, 'removeMaskOnSubmit': true " })
-        <span asp-validation-for="Data" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ContratosNegociados" class="control-label">Contratos Negociados</label>
-        @Html.TextBoxFor(d => d.ContratosNegociados, new { @class = "form-control", @type = "number", @style = "text-align:right" })
-        <span asp-validation-for="ContratosNegociados" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="AjusteDayTrade" class="control-label">Ajuste DayTrade</label>
-        @Html.TextBoxFor(d => d.AjusteDayTrade, new { @class = "form-control", @type = "number", @style = "text-align:right" })
-        <span asp-validation-for="AjusteDayTrade" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Salvar" class="btn btn-primary" />
-    </div>
-    </form>
-</div>
 </div>
 
 <div>
-    <a asp-action="Index">Voltar</a>
+    @Html.ActionLink("Resumo Mensal", "ResumoMensal", "Historico", null)
+    @*<a asp-action="Index">Voltar</a>*@
 </div>
 
 @section Scripts {
