@@ -1,6 +1,7 @@
 ﻿using Dominio.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -52,19 +53,14 @@ namespace WebApp.Models
         }
         public int Ano { get; set; }
         public int Mes { get; set; }
-        public decimal ValorTotal { get; set; }
-        public bool Negativo
-        {
-            get
-            {
-                return this.ValorTotal < 0 ? true : false;
-            }
-        }
+        public string ValorTotal { get; set; }
+        public bool Negativo { get; set; }
         public ResumoMensalViewModel(int ano, int mes, decimal valor)
         {
             this.Ano = ano;
             this.Mes = mes;
-            this.ValorTotal = valor;
+            this.ValorTotal = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", valor);
+            this.Negativo = valor < 0 ? true : false;
         }
 
     }

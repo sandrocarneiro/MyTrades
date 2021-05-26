@@ -38,13 +38,13 @@
                     {
                         <div style="color:red">
                             @*@Html.ActionLink(item.ValorTotal.ToString(), "ResumoDiario", new { id = item.ID })*@
-                            @Html.Label(item.ValorTotal.ToString())
+                            @Html.Label(item.ValorTotal)
                         </div>
                     }
                     else
                     {
                         <div style="color:black">
-                            @Html.Label(item.ValorTotal.ToString())
+                            @Html.Label(item.ValorTotal)
                         </div>
                     }
                 </td>
