@@ -33,7 +33,7 @@ namespace WebApp.Controllers
             try
             {
                 this.NotaCorretagemServico.Inserir(viewModel.Instanciar());
-                return RedirectToAction("Index", "Historico");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
