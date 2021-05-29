@@ -22,6 +22,11 @@ namespace ServicoAplicacao
             this.ColecaoMovimentacaoContaCorrente = new MovimentacaoContaCorrenteRepositorio();
         }
 
+        public List<NotaCorretagem> ObterTodas()
+        {
+            return this.ColecaoNotaCorretagem.ObterHistorico();
+        }
+
         public void Inserir(NotaCorretagem notaCorretagem)
         {            
             this.ColecaoNotaCorretagem.Inserir(notaCorretagem);

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Dominio.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ServicoAplicacao;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -12,15 +14,18 @@ namespace WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private HistoricoServico HistoricoServico;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            this.HistoricoServico = new HistoricoServico();
         }
 
         public IActionResult Index()
         {
-            return RedirectToAction("ResumoMensal", "Historico");
+            List<Historico> lista = this.HistoricoServico.Obter();
+            return View(new HomeIndexViewModel(lista));
         }
 
         public IActionResult Privacy()

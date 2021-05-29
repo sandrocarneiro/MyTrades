@@ -16,6 +16,11 @@ namespace Infraestrutura.Repositorios
             this.UnidadeTrabalho = new Contexto();
         }
 
+        public List<NotaCorretagem> ObterHistorico()
+        {
+            return this.UnidadeTrabalho.CriarColecaoNotaCorretagem()
+                                        .ToList();
+        }
         public List<NotaCorretagem> ObterHistorico(DateTime dataInicio)
         {
             return this.UnidadeTrabalho.CriarColecaoNotaCorretagem()

@@ -1,8 +1,98 @@
-﻿@{
+﻿@model WebApp.Models.HomeIndexViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<p>
+    <div class="col-xl-2 col-lg-4">
+        @Html.ActionLink("Inserir Nota", "Inserir", "NotaCorretagem", null, new { @class = "btn btn-primary" })
+    </div>
+</p>
+
+<div class="container-fluid bg-3 text-center">
+    <h3>Mercado Mini-Índices</h3><br>
+    <div class="row">
+        <div class="col-sm-3">
+            <p class="p-3 mb-2 bg-info text-white">Saldo Corretora Atual</p>
+            <p>@Html.Label(Model.SaldoCorretoraAtual)</p>
+        </div>
+        <div class="col-sm-3">
+            <p class="p-3 mb-2 bg-info text-white">Saldo Total dos Trades</p>
+            <p>@Html.Label(Model.SaldoTotalTrades)</p>
+        </div>
+        <div class="col-sm-3">
+            <p class="p-3 mb-2 bg-info text-white">Maior Saldo Corretora</p>
+            <p>@Html.Label(Model.MaiorSaldoCorretora)</p>
+        </div>
+        <div class="col-sm-3">
+            <p class="p-3 mb-2 bg-info text-white">Menor Saldo Corretora</p>
+            <p>@Html.Label(Model.MenorSaldoCorretora)</p>
+        </div>
+    </div>
 </div>
+<br>
+
+<div class="container-fluid bg-3 text-center">
+    <div class="row">
+        <div class="col-sm-6">
+            <p class="p-3 mb-2 bg-info text-white">Top 3 - Gain</p>
+            <table class="table">
+                <thead>
+
+                    <tr>
+                        <th class="text-center">
+                            Dia
+                        </th>
+                        <th class="text-right">
+                            Valor
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.TopGain)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @Html.Label(item.Key)
+                            </td>
+                            <td class="text-right">
+                                @Html.Label(item.Value)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6">
+            <p class="p-3 mb-2 bg-info text-white">Top 3 - Loss</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center">
+                            Dia
+                        </th>
+                        <th class="text-right">
+                            Valor
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.TopLoss)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @Html.Label(item.Key)
+                            </td>
+                            <td class="text-right">
+                                @Html.Label(item.Value)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+

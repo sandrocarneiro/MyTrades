@@ -60,6 +60,7 @@ namespace Infraestrutura.Repositorios
                 {
                     Data = this.ObterDatetime(dr["Data"]),
                     Valor = this.ObterDecimal(dr["Valor"]),
+                    Tipo = this.ObterString(dr["Tipo"]),
                     SaldoCorretora = this.ObterDecimal(dr["SaldoCorretora"])
                 });
             }
