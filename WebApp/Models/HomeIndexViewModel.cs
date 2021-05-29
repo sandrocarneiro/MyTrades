@@ -1,6 +1,7 @@
 ﻿using Dominio.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,32 +20,32 @@ namespace WebApp.Models
 
         public HomeIndexViewModel(List<Historico> lista)
         {
-            this.SaldoCorretoraAtual = lista.OrderByDescending(x => x.Data)
+            this.SaldoCorretoraAtual = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", lista.OrderByDescending(x => x.Data)
                                              .FirstOrDefault()
-                                             .SaldoCorretora.ToString();
+                                             .SaldoCorretora);
 
-            this.SaldoTotalTrades = lista.Where(x => x.Tipo == "NC")
-                                          .Sum(x => x.Valor).ToString();
+            this.SaldoTotalTrades = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", lista.Where(x => x.Tipo == "NC")
+                                          .Sum(x => x.Valor));
 
-            this.MaiorSaldoCorretora = lista.OrderByDescending(x => x.SaldoCorretora)
+            this.MaiorSaldoCorretora = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", lista.OrderByDescending(x => x.SaldoCorretora)
                                             .FirstOrDefault()
-                                            .SaldoCorretora.ToString();
+                                            .SaldoCorretora);
 
-            this.MenorSaldoCorretora = lista.OrderBy(x => x.SaldoCorretora)
+            this.MenorSaldoCorretora = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", lista.OrderBy(x => x.SaldoCorretora)
                                             .FirstOrDefault()
-                                            .SaldoCorretora.ToString();
+                                            .SaldoCorretora);
 
             this.TopGain = new List<KeyValuePair<string, string>>();
             foreach (var item in lista.Where(x => x.Tipo == "NC").OrderByDescending(x => x.Valor).Take(3))
             {
-                this.TopGain.Add(new KeyValuePair<string, string>(item.Data.ToString(), item.Valor.ToString()));
+                this.TopGain.Add(new KeyValuePair<string, string>(item.Data.ToString(), String.Format(new CultureInfo("pt-BR"), "{0:0.00}", item.Valor)));
             }
 
 
             this.TopLoss = new List<KeyValuePair<string, string>>();
             foreach (var item in lista.Where(x => x.Tipo == "NC").OrderBy(x => x.Valor).Take(3))
             {
-                this.TopLoss.Add(new KeyValuePair<string, string>(item.Data.ToString(), item.Valor.ToString()));
+                this.TopLoss.Add(new KeyValuePair<string, string>(item.Data.ToString(), String.Format(new CultureInfo("pt-BR"), "{0:0.00}", item.Valor)));
             }
 
         }
