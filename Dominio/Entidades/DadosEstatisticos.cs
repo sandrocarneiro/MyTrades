@@ -52,9 +52,13 @@ namespace Dominio.Entidades
             this.QuantidadePerdas = lista.Where(x => x.Tipo == "NC" &&  x.Tipo == "NC" &&x.Valor < 0)
                                          .Count();
 
-            this.RelacaoGanhoPerda = Math.Abs(MediaGanhos > MediaPerdas ? MediaGanhos / MediaPerdas : -1 * MediaPerdas / MediaGanhos);
+            this.RelacaoGanhoPerda = Math.Abs(MediaGanhos) > Math.Abs(MediaPerdas) ? 
+                                        Math.Abs(MediaGanhos) / Math.Abs(MediaPerdas) : 
+                                        -1 * Math.Abs(MediaPerdas) / Math.Abs(MediaGanhos);
 
-            this.RelacaoQuantidadeGanhoPerda = Math.Abs(QuantidadeGanhos > QuantidadePerdas ? QuantidadeGanhos / QuantidadePerdas : -1* QuantidadePerdas / QuantidadeGanhos );
+            this.RelacaoQuantidadeGanhoPerda = Math.Abs(QuantidadeGanhos) > Math.Abs(QuantidadePerdas) ? 
+                                                Math.Abs(QuantidadeGanhos) / Math.Abs(QuantidadePerdas) : 
+                                                -1* Math.Abs(QuantidadePerdas) / Math.Abs(QuantidadeGanhos);
 
             this.TopGain = new List<KeyValuePair<DateTime, decimal>>();
             foreach (var item in lista.Where(x => x.Tipo == "NC").OrderByDescending(x => x.Valor).Take(3))
