@@ -14,42 +14,40 @@ namespace WebApp.Models
         public string SaldoMesAtual { get; set; }
         public string MaiorSaldoCorretora { get; set; }
         public string MenorSaldoCorretora { get; set; }
-
+        public string MediaGanhos { get; set; }
+        public string MediaPerdas { get; set; }
+        public string RelacaoGanhoPerda { get; set; }
+        public string QuantidadeGanhos { get; set; }
+        public string QuantidadePerdas { get; set; }
+        public string RelacaoQuantidadeGanhoPerda { get; set; }
         public List<KeyValuePair<string, string>> TopGain { get; set; }
         public List<KeyValuePair<string, string>> TopLoss { get; set; }
 
-        public HomeIndexViewModel(List<Historico> lista)
+        public HomeIndexViewModel(DadosEstatisticos dados)
         {
-            this.SaldoCorretoraAtual = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", lista.OrderByDescending(x => x.Data)
-                                             .FirstOrDefault()
-                                             .SaldoCorretora);
-
-            this.SaldoTotalTrades = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", lista.Where(x => x.Tipo == "NC")
-                                          .Sum(x => x.Valor));
-
-            this.MaiorSaldoCorretora = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", lista.OrderByDescending(x => x.SaldoCorretora)
-                                            .FirstOrDefault()
-                                            .SaldoCorretora);
-
-            this.MenorSaldoCorretora = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", lista.OrderBy(x => x.SaldoCorretora)
-                                            .FirstOrDefault()
-                                            .SaldoCorretora);
+            this.SaldoCorretoraAtual = "R$ " + String.Format(new CultureInfo("pt-BR"), "{0:0.00}", dados.SaldoCorretoraAtual);
+            this.SaldoTotalTrades = "R$ " + String.Format(new CultureInfo("pt-BR"), "{0:0.00}", dados.SaldoTotalTrades);
+            this.MaiorSaldoCorretora = "R$ " + String.Format(new CultureInfo("pt-BR"), "{0:0.00}", dados.MaiorSaldoCorretora);
+            this.MenorSaldoCorretora = "R$ " + String.Format(new CultureInfo("pt-BR"), "{0:0.00}", dados.MenorSaldoCorretora);
+            this.MediaGanhos = "R$ " + String.Format(new CultureInfo("pt-BR"), "{0:0.00}", dados.MediaGanhos);
+            this.MediaPerdas = "R$ " + String.Format(new CultureInfo("pt-BR"), "{0:0.00}", dados.MediaPerdas);
+            this.RelacaoGanhoPerda = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", dados.RelacaoGanhoPerda);
+            this.QuantidadeGanhos = String.Format(new CultureInfo("pt-BR"), "{0:0}", dados.QuantidadeGanhos);
+            this.QuantidadePerdas = String.Format(new CultureInfo("pt-BR"), "{0:0}", dados.QuantidadePerdas);
+            this.RelacaoQuantidadeGanhoPerda = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", dados.RelacaoQuantidadeGanhoPerda);
 
             this.TopGain = new List<KeyValuePair<string, string>>();
-            foreach (var item in lista.Where(x => x.Tipo == "NC").OrderByDescending(x => x.Valor).Take(3))
+            foreach (var item in dados.TopGain)
             {
-                this.TopGain.Add(new KeyValuePair<string, string>(item.Data.ToString(), String.Format(new CultureInfo("pt-BR"), "{0:0.00}", item.Valor)));
+                this.TopGain.Add(new KeyValuePair<string, string>(item.Key.ToString("dd/mm/yy"), String.Format(new CultureInfo("pt-BR"), "{0:0.00}", item.Value)));
             }
 
 
             this.TopLoss = new List<KeyValuePair<string, string>>();
-            foreach (var item in lista.Where(x => x.Tipo == "NC").OrderBy(x => x.Valor).Take(3))
+            foreach (var item in dados.TopLoss)
             {
-                this.TopLoss.Add(new KeyValuePair<string, string>(item.Data.ToString(), String.Format(new CultureInfo("pt-BR"), "{0:0.00}", item.Valor)));
+                this.TopLoss.Add(new KeyValuePair<string, string>(item.Key.ToString("dd/mm/yy"), String.Format(new CultureInfo("pt-BR"), "{0:0.00}", item.Value)));
             }
-
         }
-
-
     }
 }

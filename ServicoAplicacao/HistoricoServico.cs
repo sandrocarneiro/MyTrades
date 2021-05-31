@@ -22,5 +22,10 @@ namespace ServicoAplicacao
         {
             return this.ColecaoHistorico.Obter();
         }
+
+        public DadosEstatisticos ObterDadosEstatisticos()
+        {
+            return new DadosEstatisticos(this.ColecaoHistorico.Obter());
+        }
     }
 }

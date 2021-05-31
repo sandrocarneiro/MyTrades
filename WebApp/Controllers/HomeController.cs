@@ -24,8 +24,7 @@ namespace WebApp.Controllers
 
         public IActionResult Index()
         {
-            List<Historico> lista = this.HistoricoServico.Obter();
-            return View(new HomeIndexViewModel(lista));
+            return View(new HomeIndexViewModel(this.HistoricoServico.ObterDadosEstatisticos()));
         }
 
         public IActionResult Privacy()
