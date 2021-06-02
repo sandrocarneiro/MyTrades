@@ -22,9 +22,9 @@ namespace ServicoAplicacao
             this.ColecaoMovimentacaoContaCorrente = new MovimentacaoContaCorrenteRepositorio();
         }
 
-        public List<NotaCorretagem> ObterTodas()
+        public List<NotaCorretagem> Obter()
         {
-            return this.ColecaoNotaCorretagem.ObterHistorico();
+            return this.ColecaoNotaCorretagem.Obter();
         }
 
         public void Inserir(NotaCorretagem notaCorretagem)
@@ -34,6 +34,11 @@ namespace ServicoAplicacao
             List<MovimentacaoContaCorrente> listaMovimentacaoCC = ColecaoMovimentacaoContaCorrente.ObterHistorico(new DateTime(2021, 1, 1));
             List<Historico> historico = this.HistoricoServicoDominio.Reconstruir(listaNotas, listaMovimentacaoCC);
             ColecaoHistorico.Atualizar(historico);
+        }
+
+        public NotaCorretagem Obter(int id)
+        {
+            return this.ColecaoNotaCorretagem.Obter(id);
         }
     }
 }

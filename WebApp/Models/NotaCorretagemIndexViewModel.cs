@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Dominio.Entidades;
 
 
-namespace WebApp.Models.NotaCorretagemViewModel
+namespace WebApp.Models
 {
     public class NotaCorretagemIndexViewModel
     {

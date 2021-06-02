@@ -16,10 +16,16 @@ namespace Infraestrutura.Repositorios
             this.UnidadeTrabalho = new Contexto();
         }
 
-        public List<NotaCorretagem> ObterHistorico()
+        public List<NotaCorretagem> Obter()
         {
             return this.UnidadeTrabalho.CriarColecaoNotaCorretagem()
                                         .ToList();
+        }
+        public NotaCorretagem Obter(int id)
+        {
+            return this.UnidadeTrabalho.CriarColecaoNotaCorretagem()
+                                        .Where(x => x.ID == id)
+                                        .SingleOrDefault();
         }
         public List<NotaCorretagem> ObterHistorico(DateTime dataInicio)
         {

@@ -1,0 +1,96 @@
+﻿@model WebApp.Models.NotaCorretagemDetalheViewModel
+
+@{
+    ViewData["Title"] = "Detalhe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Nota de Corretagem - Detalhe</h4>
+<hr />
+<div class="class=" container-fluid bg-3 text-center"">
+    <form asp-action="Editar">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @Html.HiddenFor(x => x.ID)
+        <div class="row">
+            <div class="form-group col-sm-2">
+                @Html.Label("Data")
+                @Html.TextBoxFor(d => d.Data, new { @class = "form-control", @style = "text-align:left", @disabled = "disabled" })
+                <span asp-validation-for="Data" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                @Html.Label("Número")
+                @Html.TextBoxFor(d => d.Numero, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                <span asp-validation-for="Numero" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                @Html.Label("Contratos Negociados")
+                @Html.TextBoxFor(d => d.ContratosNegociados, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                <span asp-validation-for="ContratosNegociados" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                <label asp-for="AjusteDayTrade" class="control-label">Ajuste DayTrade</label>
+                @Html.TextBoxFor(d => d.AjusteDayTrade, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                <span asp-validation-for="AjusteDayTrade" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-2">
+                <label asp-for="TaxaRegistro" class="control-label"></label>
+                @Html.TextBoxFor(d => d.TaxaRegistro, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                <span asp-validation-for="TaxaRegistro" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                <label asp-for="TaxasBMF" class="control-label"></label>
+                @Html.TextBoxFor(d => d.TaxasBMF, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                <span asp-validation-for="TaxasBMF" class="text-danger"></span>
+            </div>
+            <div class="form-grou col-sm-2">
+                <label asp-for="TaxaOperacional" class="control-label"></label>
+                @Html.TextBoxFor(d => d.TaxaOperacional, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                <span asp-validation-for="TaxaOperacional" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                <label asp-for="TotalDespesas" class="control-label"></label>
+                @Html.TextBoxFor(d => d.TotalDespesas, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                <span asp-validation-for="TotalDespesas" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                <label asp-for="TotalLiquido" class="control-label"></label>
+                @Html.TextBoxFor(d => d.TotalLiquido, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                <span asp-validation-for="TotalLiquido" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-2">
+                <label asp-for="IRRF" class="control-label"></label>
+                @Html.TextBoxFor(d => d.IRRF, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                <span asp-validation-for="IRRF" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                <label asp-for="ISS" class="control-label"></label>
+                @Html.TextBoxFor(d => d.ISS, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                <span asp-validation-for="ISS" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-2">
+                <label asp-for="TotalContaNormal" class="control-label"></label>
+                @Html.TextBoxFor(d => d.TotalContaNormal, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                <span asp-validation-for="TotalContaNormal" class="text-danger"></span>
+            </div>
+            <div class="form-group col-sm-2">
+                <label asp-for="TotalLiquidoNota" class="control-label"></label>
+                @Html.TextBoxFor(d => d.TotalLiquidoNota, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                <span asp-validation-for="TotalLiquidoNota" class="text-danger"></span>
+            </div>
+        </div>
+    </form>
+</div>
+<div>
+    @Html.ActionLink("Editar", "Editar", new { id = Model.ID }) |
+    @Html.ActionLink("Voltar", "Index", new { id = Model.ID })
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

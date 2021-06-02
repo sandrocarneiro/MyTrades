@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Dominio.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using ServicoAplicacao;
-using WebApp.Models.NotaCorretagemViewModel;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
@@ -18,8 +19,18 @@ namespace WebApp.Controllers
             this.NotaCorretagemServico = new NotaCorretagemServico();
         }
 
+        public IActionResult Index()
+        {
+            List<NotaCorretagemViewModel> lista = this.NotaCorretagemServico
+                                                        .Obter()
+                                                        .OrderByDescending(x => x.Data)
+                                                        .Select(x => new NotaCorretagemViewModel(x.ID, x.Data, x.ContratosNegociados, x.TotalLiquidoNota))
+                                                        .ToList();
+            return View(lista);
+        }
+
         [HttpGet]
-        public ActionResult Inserir()
+        public IActionResult Inserir()
         {
             NotaCorretagemInserirViewModel viewModel = new NotaCorretagemInserirViewModel();
             viewModel.Data = System.DateTime.Now.ToString("dd/MM/yyyy");
@@ -28,7 +39,7 @@ namespace WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Inserir(NotaCorretagemInserirViewModel viewModel)
+        public IActionResult Inserir(NotaCorretagemInserirViewModel viewModel)
         {
             try
             {
@@ -40,5 +51,25 @@ namespace WebApp.Controllers
                 return View(ex);
             }
         }
+
+        [HttpGet]
+        public IActionResult Detalhe(int id)
+        {
+            return View(new NotaCorretagemDetalheViewModel(this.NotaCorretagemServico.Obter(id)));
+        }
+
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            return View(new NotaCorretagemEditarViewModel(this.NotaCorretagemServico.Obter(id)));
+        }
+
+        [HttpPost]
+        public IActionResult Editar(NotaCorretagemEditarViewModel nota)
+        {
+            return View();
+        }
+
+
     }
 }

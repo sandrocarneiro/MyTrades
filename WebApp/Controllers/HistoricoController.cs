@@ -33,19 +33,19 @@ namespace WebApp.Controllers
                 throw ex;
             }
         }
+
         public IActionResult ResumoDiario(string id)
         {
             try
             {
                 List<Historico> lista = this.HistoricoServico.Obter(id).OrderByDescending(x => x.Data).ToList();
-                ResumoDiarioViewModel viewModel = new ResumoDiarioViewModel(lista);
-                return View(viewModel);
+                var visaoMensal = new ResumoDiarioViewModel(lista);
+                return View(visaoMensal);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-
     }
 }
