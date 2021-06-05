@@ -14,22 +14,22 @@
         <div class="row">
             <div class="form-group col-sm-2">
                 @Html.Label("Data")
-                <input asp-for="Data" class="form-control" />
+                <input asp-for="Data" id="datepicker" type="text" class="form-control" value="@Model.Data.ToString("dd-MM-yyyy")" />
                 <span asp-validation-for="Data" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
-                @Html.Label("Número")
-                <input asp-for="Numero" class="form-control" />
+                <label asp-for="Numero" class="control-label">Número</label>
+                @Html.TextBoxFor(d => d.Numero, new { @class = "form-control" })
                 <span asp-validation-for="Numero" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
-                @Html.Label("Contratos Negociados")
-                @Html.TextBoxFor(d => d.ContratosNegociados, new { @class = "form-control", @style = "text-align:right" })
+                <label asp-for="ContratosNegociados" class="control-label">Contratos Negociados</label>
+                @Html.TextBoxFor(d => d.ContratosNegociados, new { @class = "form-control", @type = "number", @style = "text-align:right" })
                 <span asp-validation-for="ContratosNegociados" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
                 <label asp-for="AjusteDayTrade" class="control-label">Ajuste DayTrade</label>
-                @Html.TextBoxFor(d => d.AjusteDayTrade, new { @class = "form-control", @style = "text-align:right" })
+                @Html.TextBoxFor(d => d.AjusteDayTrade, new { @class = "form-control", @type = "decimal", @style = "text-align:right" })
                 <span asp-validation-for="AjusteDayTrade" class="text-danger"></span>
             </div>
         </div>

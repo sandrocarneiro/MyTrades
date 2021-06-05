@@ -14,7 +14,9 @@
         <div class="row">
             <div class="form-group col-sm-2">
                 @Html.Label("Data")
-                @Html.TextBoxFor(d => d.Data, new { @class = "form-control", @style = "text-align:left", @disabled = "disabled" })
+                @*@Html.TextBoxFor(d => d.Data, new { @class = "form-control", @style = "text-align:left", @disabled = "disabled" })*@
+                <input asp-for="Data" id="datepicker" type="text" class="form-control" value="@Model.Data.ToString("dd-MM-yyyy")" disabled="disabled" />
+
                 <span asp-validation-for="Data" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
@@ -24,7 +26,8 @@
             </div>
             <div class="form-group col-sm-2">
                 @Html.Label("Contratos Negociados")
-                @Html.TextBoxFor(d => d.ContratosNegociados, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                @Html.TextBoxFor(d => d.ContratosNegociados, new { @class = "form-control", @type = "number", @style = "text-align:right", @disabled = "disabled" })
+
                 <span asp-validation-for="ContratosNegociados" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
@@ -46,7 +49,7 @@
             </div>
             <div class="form-grou col-sm-2">
                 <label asp-for="TaxaOperacional" class="control-label"></label>
-                @Html.TextBoxFor(d => d.TaxaOperacional, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                @Html.TextBoxFor(d => d.TaxaOperacional, new { @class = "form-control", @type = "decimal", @style = "text-align:right", @disabled = "disabled" })
                 <span asp-validation-for="TaxaOperacional" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">
@@ -63,7 +66,7 @@
         <div class="row">
             <div class="form-group col-sm-2">
                 <label asp-for="IRRF" class="control-label"></label>
-                @Html.TextBoxFor(d => d.IRRF, new { @class = "form-control", @style = "text-align:right", @disabled = "disabled" })
+                @Html.TextBoxFor(d => d.IRRF, new { @class = "form-control", @type = "decimal", @style = "text-align:right", @disabled = "disabled" })
                 <span asp-validation-for="IRRF" class="text-danger"></span>
             </div>
             <div class="form-group col-sm-2">

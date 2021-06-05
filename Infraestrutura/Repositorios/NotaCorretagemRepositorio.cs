@@ -38,5 +38,9 @@ namespace Infraestrutura.Repositorios
             this.UnidadeTrabalho.Inserir(notaCorretagem);
         }
 
+        public void Atualizar(NotaCorretagem nota)
+        {
+            this.UnidadeTrabalho.Atualizar(nota);
+        }
     }
 }

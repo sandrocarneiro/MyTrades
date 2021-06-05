@@ -14,5 +14,6 @@ namespace Infraestrutura.Repositorios
         void Atualizar(List<Historico> listaHistorico);
         void Inserir(NotaCorretagem notaCorretagem);
         void Inserir(MovimentacaoContaCorrente movimentacaoCC);
+        void Atualizar(NotaCorretagem nota);
     }
 }

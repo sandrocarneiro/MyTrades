@@ -21,10 +21,10 @@ namespace WebApp.Controllers
 
         public IActionResult Index()
         {
-            List<NotaCorretagemViewModel> lista = this.NotaCorretagemServico
+            List<NotaCorretagemIndexViewModel> lista = this.NotaCorretagemServico
                                                         .Obter()
                                                         .OrderByDescending(x => x.Data)
-                                                        .Select(x => new NotaCorretagemViewModel(x.ID, x.Data, x.ContratosNegociados, x.TotalLiquidoNota))
+                                                        .Select(x => new NotaCorretagemIndexViewModel(x.ID, x.Data, x.ContratosNegociados, x.TotalLiquidoNota))
                                                         .ToList();
             return View(lista);
         }
@@ -33,7 +33,7 @@ namespace WebApp.Controllers
         public IActionResult Inserir()
         {
             NotaCorretagemInserirViewModel viewModel = new NotaCorretagemInserirViewModel();
-            viewModel.Data = System.DateTime.Now.ToString("dd/MM/yyyy");
+            viewModel.Data = System.DateTime.Now;
             return View(viewModel);
         }
 
@@ -44,7 +44,7 @@ namespace WebApp.Controllers
             try
             {
                 this.NotaCorretagemServico.Inserir(viewModel.Instanciar());
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "NotaCorretagem");
             }
             catch (Exception ex)
             {
@@ -65,9 +65,17 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Editar(NotaCorretagemEditarViewModel nota)
+        public IActionResult Editar(NotaCorretagemEditarViewModel viewModel)
         {
-            return View();
+            try
+            {
+                this.NotaCorretagemServico.Atualizar(viewModel.Instanciar());
+                return RedirectToAction("Index", "NotaCorretagem");
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
         }
 
 

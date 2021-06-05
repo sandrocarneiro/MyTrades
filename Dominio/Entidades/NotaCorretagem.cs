@@ -24,7 +24,6 @@ namespace Dominio.Entidades
                 return this.TaxaOperacional + this.TaxaRegistro + this.TaxasBMF;
             }
         }
-
         public decimal TotalLiquido
         {
             get
@@ -46,6 +45,33 @@ namespace Dominio.Entidades
                 return this.TotalContaNormal + this.ISS;
             }
         }
+
+        public NotaCorretagem(int id, DateTime data, string numero, int contratosNegociados, decimal ajusteDayTrade,
+                                decimal taxaRegistro, decimal taxasBMF, decimal taxaOperacional, decimal irrf, decimal iss)
+        {
+            this.ID = id;
+            this.Data = data;
+            this.Numero = numero;
+            this.ContratosNegociados = contratosNegociados;
+            this.AjusteDayTrade = ajusteDayTrade;
+            this.TaxaRegistro = taxaRegistro;
+            this.TaxasBMF = taxasBMF;
+            this.TaxaOperacional = TaxaOperacional;
+            this.IRRF = irrf;
+            this.ISS = iss;
+        }
+
+        public NotaCorretagem(int id,
+                              string numero,
+                              DateTime data,
+                              int contratosNegociados,
+                              decimal ajusteDayTrade)
+            : this(numero, data, contratosNegociados, ajusteDayTrade)
+        {
+            this.ID = id;
+        }
+
+
         public NotaCorretagem(string numero,
                               DateTime data,
                               int contratosNegociados,
@@ -56,10 +82,10 @@ namespace Dominio.Entidades
             this.ContratosNegociados = contratosNegociados;
             this.AjusteDayTrade = ajusteDayTrade;
 
-            this.TaxaOperacional = 0;
+            this.TaxaOperacional = 0.00m;
             this.TaxaRegistro = -0.45m * this.ContratosNegociados * 0.1556m * 2.42m;
             this.TaxasBMF = -0.45m * this.ContratosNegociados * 0.133m * 1.35m;
-            this.IRRF = this.TotalLiquido > 0 ? - 1 * this.TotalLiquido / 100 : 0;
+            this.IRRF = this.TotalLiquido > 0 ? -1 * this.TotalLiquido / 100 : 0;
             this.ISS = 0.09m * this.TaxaOperacional;
         }
     }

@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Dominio.Entidades;
-
 
 namespace WebApp.Models
 {
-    public class NotaCorretagemIndexViewModel
+    public class NotaCorretagemIndexViewModel : NotaCorretagemViewModel
     {
-        public List<NotaCorretagem> ListaNotaCorretagem;
-
-        public NotaCorretagemIndexViewModel(List<NotaCorretagem> lista)
+        public string ID { get; set; }
+        public new string Data { get; set; }
+        public new string ContratosNegociados { get; set; }
+        public string TotalLiquidoNota { get; set; }
+        public NotaCorretagemIndexViewModel(int id, DateTime data, int contratosNegociados, decimal totalLiquidoNota)
         {
-            this.ListaNotaCorretagem = lista;
+            this.ID = id.ToString();
+            this.Data = data.ToString("dd/MM/yyyy");
+            this.ContratosNegociados = String.Format(new CultureInfo("pt-BR"), "{0:0}", contratosNegociados);
+            this.TotalLiquidoNota = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", totalLiquidoNota);
         }
     }
 }

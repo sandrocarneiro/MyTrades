@@ -21,24 +21,30 @@ namespace ServicoAplicacao
             this.ColecaoHistorico = new HistoricoRepositorio();
             this.ColecaoMovimentacaoContaCorrente = new MovimentacaoContaCorrenteRepositorio();
         }
-
         public List<NotaCorretagem> Obter()
         {
             return this.ColecaoNotaCorretagem.Obter();
         }
-
         public void Inserir(NotaCorretagem notaCorretagem)
         {            
             this.ColecaoNotaCorretagem.Inserir(notaCorretagem);
-            List <NotaCorretagem> listaNotas = this.ColecaoNotaCorretagem.ObterHistorico(new DateTime(2021,1,1));
-            List<MovimentacaoContaCorrente> listaMovimentacaoCC = ColecaoMovimentacaoContaCorrente.ObterHistorico(new DateTime(2021, 1, 1));
-            List<Historico> historico = this.HistoricoServicoDominio.Reconstruir(listaNotas, listaMovimentacaoCC);
-            ColecaoHistorico.Atualizar(historico);
+            this.AtualizarHistorico();
         }
-
         public NotaCorretagem Obter(int id)
         {
             return this.ColecaoNotaCorretagem.Obter(id);
+        }
+        public void Atualizar(NotaCorretagem nota)
+        {
+            this.ColecaoNotaCorretagem.Atualizar(nota);
+            this.AtualizarHistorico();
+        }
+        public void AtualizarHistorico()
+        {
+            List<NotaCorretagem> listaNotas = this.ColecaoNotaCorretagem.ObterHistorico(new DateTime(2021, 1, 1));
+            List<MovimentacaoContaCorrente> listaMovimentacaoCC = ColecaoMovimentacaoContaCorrente.ObterHistorico(new DateTime(2021, 1, 1));
+            List<Historico> historico = this.HistoricoServicoDominio.Reconstruir(listaNotas, listaMovimentacaoCC);
+            ColecaoHistorico.Atualizar(historico);
         }
     }
 }

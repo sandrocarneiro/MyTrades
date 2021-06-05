@@ -17,6 +17,7 @@ namespace Infraestrutura.Repositorios
             this.ConnectionString = "workstation id = mytrade.mssql.somee.com; packet size = 4096; user id = scarneiro_SQLLogin_1; pwd = j9ydgujmxa; data source = mytrade.mssql.somee.com; persist security info = False; initial catalog = mytrade";
         }
 
+        #region Historico
         public void Atualizar(List<Historico> listaHistorico)
         {
             try
@@ -68,7 +69,9 @@ namespace Infraestrutura.Repositorios
             this.SqlConn.Close();
             return lista;
         }
+        #endregion
 
+        #region MovimentacaoContaCorrente
         public List<MovimentacaoContaCorrente> CriarColecaoMovimentacaoContaCorrente()
         {
             this.SqlConn = new SqlConnection(ConnectionString);
@@ -91,7 +94,32 @@ namespace Infraestrutura.Repositorios
             this.SqlConn.Close();
             return lista;
         }
+        public void Inserir(MovimentacaoContaCorrente movimentacaoCC)
+        {
+            try
+            {
+                this.SqlConn = new SqlConnection(ConnectionString);
+                this.SqlConn.Open();
+                SqlCommand cmd = new SqlCommand(
+                    "INSERT INTO MovimentacaoContaCorrente " +
+                    "(Data, Valor) " +
+                    "values(" +
+                    "@Data, @Valor)",
+                    this.SqlConn);
 
+                cmd.Parameters.AddWithValue("@Data", movimentacaoCC.Data);
+                cmd.Parameters.AddWithValue("@Valor", movimentacaoCC.Valor);
+                cmd.ExecuteNonQuery();
+                this.SqlConn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region NotaCorretagem
         public List<NotaCorretagem> CriarColecaoNotaCorretagem()
         {
             this.SqlConn = new SqlConnection(ConnectionString);
@@ -103,25 +131,24 @@ namespace Infraestrutura.Repositorios
 
             while (dr.Read())
             {
-                lista.Add(new NotaCorretagem()
-                {
-                    ID = this.ObterInteger(dr["ID"]),
-                    Numero = this.ObterString(dr["Numero"]),
-                    Data = this.ObterDatetime(dr["Data"]),
-                    ContratosNegociados = this.ObterInteger(dr["ContratosNegociados"]),
-                    AjusteDayTrade = this.ObterDecimal(dr["AjusteDayTrade"]),
-                    TaxaRegistro = this.ObterDecimal(dr["TaxaRegistro"]),
-                    TaxasBMF = this.ObterDecimal(dr["TaxasBMF"]),
-                    TaxaOperacional = this.ObterDecimal(dr["TaxaOperacional"]),
-                    IRRF = this.ObterDecimal(dr["IRRF"]),
-                    ISS = this.ObterDecimal(dr["ISS"])
-                });
+                lista.Add(new NotaCorretagem(
+                                            this.ObterInteger(dr["ID"]),
+                                            this.ObterDatetime(dr["Data"]),
+                                            this.ObterString(dr["Numero"]),
+                                            this.ObterInteger(dr["ContratosNegociados"]),
+                                            this.ObterDecimal(dr["AjusteDayTrade"]),
+                                            this.ObterDecimal(dr["TaxaRegistro"]),
+                                            this.ObterDecimal(dr["TaxasBMF"]),
+                                            this.ObterDecimal(dr["TaxaOperacional"]),
+                                            this.ObterDecimal(dr["IRRF"]),
+                                            this.ObterDecimal(dr["ISS"])
+                                             )
+                          );
             }
             dr.Close();
             this.SqlConn.Close();
             return lista;
         }
-
         public void Inserir(NotaCorretagem notaCorretagem)
         {
             try
@@ -153,22 +180,38 @@ namespace Infraestrutura.Repositorios
                 throw ex;
             }
         }
-
-        public void Inserir(MovimentacaoContaCorrente movimentacaoCC)
+        public void Atualizar(NotaCorretagem notaCorretagem)
         {
             try
             {
                 this.SqlConn = new SqlConnection(ConnectionString);
                 this.SqlConn.Open();
                 SqlCommand cmd = new SqlCommand(
-                    "INSERT INTO MovimentacaoContaCorrente " +
-                    "(Data, Valor) " +
-                    "values(" +
-                    "@Data, @Valor)",
+                    "UPDATE NotaCorretagem " +
+                    "SET " +
+                    " Numero = @Numero, " +
+                    " Data = @Data, " +
+                    " ContratosNegociados = @ContratosNegociados, " +
+                    " AjusteDayTrade = @AjusteDayTrade, " +
+                    " TaxaRegistro = @TaxaRegistro, " +
+                    " TaxasBMF = @TaxasBMF, " +
+                    " TaxaOperacional = @TaxaOperacional, " +
+                    " IRRF = @IRRF, " +
+                    " ISS = @ISS " +
+                    "WHERE ID = @id ",
                     this.SqlConn);
 
-                cmd.Parameters.AddWithValue("@Data", movimentacaoCC.Data);
-                cmd.Parameters.AddWithValue("@Valor", movimentacaoCC.Valor);
+                cmd.Parameters.AddWithValue("@ID", notaCorretagem.ID);
+                cmd.Parameters.AddWithValue("@Numero", notaCorretagem.Numero == null ? DBNull.Value.ToString() : notaCorretagem.Numero);
+                cmd.Parameters.AddWithValue("@Data", notaCorretagem.Data);
+                cmd.Parameters.AddWithValue("@ContratosNegociados", notaCorretagem.ContratosNegociados);
+                cmd.Parameters.AddWithValue("@AjusteDayTrade", notaCorretagem.AjusteDayTrade);
+                cmd.Parameters.AddWithValue("@TaxaRegistro", notaCorretagem.TaxaRegistro);
+                cmd.Parameters.AddWithValue("@TaxasBMF", notaCorretagem.TaxasBMF);
+                cmd.Parameters.AddWithValue("@TaxaOperacional", notaCorretagem.TaxaOperacional);
+                cmd.Parameters.AddWithValue("@IRRF", notaCorretagem.IRRF);
+                cmd.Parameters.AddWithValue("@ISS", notaCorretagem.ISS);
+
                 cmd.ExecuteNonQuery();
                 this.SqlConn.Close();
             }
@@ -177,7 +220,7 @@ namespace Infraestrutura.Repositorios
                 throw ex;
             }
         }
-
+        #endregion
 
         #region Métodos Privados
         private DateTime ObterDatetime(object valor)
