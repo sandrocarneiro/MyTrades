@@ -39,14 +39,14 @@ namespace WebApp.Models
             this.TopGain = new List<KeyValuePair<string, string>>();
             foreach (var item in dados.TopGain)
             {
-                this.TopGain.Add(new KeyValuePair<string, string>(item.Key.ToString("dd/mm/yy"), String.Format(new CultureInfo("pt-BR"), "{0:0.00}", item.Value)));
+                this.TopGain.Add(new KeyValuePair<string, string>(item.Key.ToString("dd/MM/yy"), String.Format(new CultureInfo("pt-BR"), "{0:0.00}", item.Value)));
             }
 
 
             this.TopLoss = new List<KeyValuePair<string, string>>();
             foreach (var item in dados.TopLoss)
             {
-                this.TopLoss.Add(new KeyValuePair<string, string>(item.Key.ToString("dd/mm/yy"), String.Format(new CultureInfo("pt-BR"), "{0:0.00}", item.Value)));
+                this.TopLoss.Add(new KeyValuePair<string, string>(item.Key.ToString("dd/MM/yy"), String.Format(new CultureInfo("pt-BR"), "{0:0.00}", item.Value)));
             }
         }
     }

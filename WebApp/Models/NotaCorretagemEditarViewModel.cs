@@ -20,6 +20,13 @@ namespace WebApp.Models
             this.ContratosNegociados = nota.ContratosNegociados;
             this.AjusteDayTrade = nota.AjusteDayTrade;
         }
-
+        public NotaCorretagem Instanciar()
+        {
+            return new NotaCorretagem(this.ID,
+                                      string.IsNullOrEmpty(this.Numero) ? "" : this.Numero.Trim(),
+                                      this.Data,
+                                      this.ContratosNegociados,
+                                      this.AjusteDayTrade);
+        }
     }
 }

@@ -9,6 +9,13 @@ namespace Dominio.Entidades
         public NotaCorretagem() { }
         public int ID { get; set; }
         public DateTime Data { get; set; }
+        public string DataUniversal
+        {
+            get
+            {
+                return this.Data.Year.ToString() + this.Data.Month.ToString().PadLeft(2, '0') + this.Data.Day.ToString().PadLeft(2, '0');
+            }
+        }
         public string Numero { get; set; }
         public int ContratosNegociados { get; set; }
         public decimal AjusteDayTrade { get; set; }
