@@ -163,7 +163,7 @@ namespace Infraestrutura.Repositorios
                     this.SqlConn);
 
                 cmd.Parameters.AddWithValue("@Numero", notaCorretagem.Numero == null ? DBNull.Value.ToString() : notaCorretagem.Numero);
-                cmd.Parameters.AddWithValue("@Data", notaCorretagem.Data);
+                cmd.Parameters.AddWithValue("@Data", notaCorretagem.DataFormatoUniversal);
                 cmd.Parameters.AddWithValue("@ContratosNegociados", notaCorretagem.ContratosNegociados);
                 cmd.Parameters.AddWithValue("@AjusteDayTrade", notaCorretagem.AjusteDayTrade);
                 cmd.Parameters.AddWithValue("@TaxaRegistro", notaCorretagem.TaxaRegistro);
@@ -203,7 +203,7 @@ namespace Infraestrutura.Repositorios
 
                 cmd.Parameters.AddWithValue("@ID", notaCorretagem.ID);
                 cmd.Parameters.AddWithValue("@Numero", notaCorretagem.Numero == null ? DBNull.Value.ToString() : notaCorretagem.Numero);
-                cmd.Parameters.AddWithValue("@Data", notaCorretagem.DataUniversal);
+                cmd.Parameters.AddWithValue("@Data", notaCorretagem.DataFormatoUniversal);
                 cmd.Parameters.AddWithValue("@ContratosNegociados", notaCorretagem.ContratosNegociados);
                 cmd.Parameters.AddWithValue("@AjusteDayTrade", notaCorretagem.AjusteDayTrade);
                 cmd.Parameters.AddWithValue("@TaxaRegistro", notaCorretagem.TaxaRegistro);

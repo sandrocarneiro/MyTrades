@@ -9,7 +9,7 @@ namespace Dominio.Entidades
         public NotaCorretagem() { }
         public int ID { get; set; }
         public DateTime Data { get; set; }
-        public string DataUniversal
+        public string DataFormatoUniversal
         {
             get
             {
