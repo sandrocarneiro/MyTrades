@@ -26,7 +26,7 @@ namespace WebApp.Models
                                       string.IsNullOrEmpty(this.Numero) ? "" : this.Numero.Trim(),
                                       this.Data,
                                       this.ContratosNegociados,
-                                      this.AjusteDayTrade);
+                                      this.AjusteDayTrade.Value);
         }
     }
 }

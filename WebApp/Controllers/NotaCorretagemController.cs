@@ -33,7 +33,6 @@ namespace WebApp.Controllers
         public IActionResult Inserir()
         {
             NotaCorretagemInserirViewModel viewModel = new NotaCorretagemInserirViewModel();
-            viewModel.Data = System.DateTime.Now;
             return View(viewModel);
         }
 

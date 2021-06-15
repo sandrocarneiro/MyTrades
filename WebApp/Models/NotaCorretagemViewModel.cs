@@ -14,7 +14,7 @@ namespace WebApp.Models
         public string Numero { get; set; }
         public DateTime Data { get; set; }
         public int ContratosNegociados { get; set; }
-        public decimal AjusteDayTrade { get; set; }
+        public decimal? AjusteDayTrade { get; set; }
 
         public NotaCorretagemViewModel() { }
 
@@ -24,7 +24,7 @@ namespace WebApp.Models
             return new NotaCorretagem(string.IsNullOrEmpty(this.Numero) ? "" : this.Numero.Trim(),
                                       this.Data,
                                       this.ContratosNegociados,
-                                      this.AjusteDayTrade);
+                                      this.AjusteDayTrade.Value);
         }
     }
 }

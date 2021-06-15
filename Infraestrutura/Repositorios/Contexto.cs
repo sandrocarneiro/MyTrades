@@ -189,15 +189,15 @@ namespace Infraestrutura.Repositorios
                 SqlCommand cmd = new SqlCommand(
                     "UPDATE NotaCorretagem " +
                     "SET " +
-                    " Numero = @Numero, " +
-                    " Data = @Data, " +
-                    " ContratosNegociados = @ContratosNegociados, " +
-                    " AjusteDayTrade = @AjusteDayTrade, " +
-                    " TaxaRegistro = @TaxaRegistro, " +
-                    " TaxasBMF = @TaxasBMF, " +
-                    " TaxaOperacional = @TaxaOperacional, " +
-                    " IRRF = @IRRF, " +
-                    " ISS = @ISS " +
+                    "  Numero = @Numero, " +
+                    "  Data = @Data, " +
+                    "  ContratosNegociados = @ContratosNegociados, " +
+                    "  AjusteDayTrade = @AjusteDayTrade, " +
+                    "  TaxaRegistro = @TaxaRegistro, " +
+                    "  TaxasBMF = @TaxasBMF, " +
+                    "  TaxaOperacional = @TaxaOperacional, " +
+                    "  IRRF = @IRRF, " +
+                    "  ISS = @ISS " +
                     "WHERE ID = @id ",
                     this.SqlConn);
 
