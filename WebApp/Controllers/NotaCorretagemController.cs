@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +27,15 @@ namespace WebApp.Controllers
                                                         .OrderByDescending(x => x.Data)
                                                         .Select(x => new NotaCorretagemIndexViewModel(x.ID, x.Data, x.ContratosNegociados, x.TotalLiquidoNota))
                                                         .ToList();
+
+            decimal minimo = lista.Min(x => x.TotalLiquidoNota);
+            decimal maximo = lista.Max(x => x.TotalLiquidoNota);
+
+            foreach (NotaCorretagemIndexViewModel item in lista)
+            {
+                item.Cor = HeatMap(item.TotalLiquidoNota, minimo, maximo);
+            }
+
             return View(lista);
         }
 
@@ -77,6 +87,24 @@ namespace WebApp.Controllers
             }
         }
 
+        public string HeatMap(decimal value, decimal min, decimal max)
+        {
+            /*
+            decimal val = (value - min) / (max - min);
+            Color corEspec = Color.FromArgb(Convert.ToByte(255 * (1 - val)), Convert.ToByte(255 * val), 0);
+            string hex = "#" + corEspec.R.ToString("X2") + corEspec.G.ToString("X2") + corEspec.B.ToString("X2");
+            return hex;
+            */
 
+            //decimal mediana = Math.Round(((max - min) / 2) + min, 0);
+            //Color corEspec = Color.FromArgb(Convert.ToByte(255 - mediana), Convert.ToByte(255 - mediana), 0);
+            //string hex = "#" + corEspec.R.ToString("X2") + corEspec.G.ToString("X2") + corEspec.B.ToString("X2");
+            //return hex;
+
+
+            Color corEspec =  value < 0 ? Color.FromArgb(255, 0, 0) : Color.FromArgb(0, 176, 80);
+            string hex = "#" + corEspec.R.ToString("X2") + corEspec.G.ToString("X2") + corEspec.B.ToString("X2");
+            return hex;
+        }
     }
 }

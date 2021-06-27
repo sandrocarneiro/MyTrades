@@ -19,22 +19,25 @@
             <th class="text-center">Data</th>
             <th class="text-right">Contratos Negociados</th>
             <th class="text-right">Total Líquido da Nota (R$)</th>
+            <th class="text-right"></th>
+            <th class="text-right"></th>
         </tr>
     </thead>
     <tbody>
         @foreach (NotaCorretagemIndexViewModel item in Model)
         {
-        <tr>
-            <td class="text-center">
-                @Html.ActionLink(item.Data.ToString("dd/MM/yyyy"), "Detalhe", new { id = item.ID })
-            </td>
-            <td class="text-right">
-                @Html.ActionLink(item.ContratosNegociados.ToString(), "Detalhe", new { id = item.ID })
-            </td>
-            <td class="text-right">
-                @Html.ActionLink(item.TotalLiquidoNota.ToString(), "Detalhe", new { id = item.ID })
-            </td>
-        </tr>
+            <tr>
+                <td class="text-center">
+                    @Html.ActionLink(item.Data.ToString("dd/MM/yyyy"), "Detalhe", new { id = item.ID })
+                </td>
+                <td class="text-right">
+                    @Html.ActionLink(item.ContratosNegociados.ToString(), "Detalhe", new { id = item.ID })
+                </td>
+                <td class="text-right">
+                    @Html.ActionLink(item.TotalLiquidoNota.ToString(), "Detalhe", new { id = item.ID })
+                </td>
+                <td class="border-0" style="background-color:@item.Cor"></td>
+            </tr>
         }
     </tbody>
 </table>
