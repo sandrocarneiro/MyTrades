@@ -12,15 +12,17 @@ namespace Infraestrutura.Repositorios
         {
             this.UnidadeTrabalho = new Contexto();
         }
-        public List<Historico> Obter()
+        public List<Historico> ObterNotaCorretagem()
         {
             return this.UnidadeTrabalho.CriarColecaoHistorico()
+                                        .Where(x => x.EhNotaCorretagem)
                                         .ToList();
         }
-        public List<Historico> Obter(string periodo)
+        public List<Historico> ObterNotaCorretagem(string periodo)
         {
             return this.UnidadeTrabalho.CriarColecaoHistorico()
-                                        .Where(x => x.Periodo == periodo )
+                                        .Where(x => x.EhNotaCorretagem &&
+                                                    x.Periodo == periodo )
                                         .ToList();
         }
         public void Atualizar(List<Historico> listaHistorico)

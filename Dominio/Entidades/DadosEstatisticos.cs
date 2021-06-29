@@ -7,6 +7,8 @@ namespace Dominio.Entidades
 {
     public class DadosEstatisticos
     {
+        public int Ano { get; set; }
+        public int Mes { get; set; }
         public decimal SaldoCorretoraAtual { get; set; }
         public decimal SaldoTotalTrades { get; set; }
         public decimal SaldoMesAtual { get; set; }
@@ -22,34 +24,39 @@ namespace Dominio.Entidades
         public List<KeyValuePair<DateTime, decimal>> TopGain { get; set; }
         public List<KeyValuePair<DateTime, decimal>> TopLoss { get; set; }
 
-
-        public DadosEstatisticos(List<Historico> lista)
+        public DadosEstatisticos(int ano, int mes, decimal valor)
         {
-            this.SaldoCorretoraAtual = lista.OrderByDescending(x => x.Data)
+            this.Ano = ano;
+            this.Mes = mes;
+        }
+
+        public DadosEstatisticos(List<Historico> listaNotaCorretagem)
+        {
+            this.SaldoCorretoraAtual = listaNotaCorretagem.OrderByDescending(x => x.Data)
                                              .FirstOrDefault()
                                              .SaldoCorretora;
 
-            this.SaldoTotalTrades = lista.Where(x => x.Tipo == "NC")
+            this.SaldoTotalTrades = listaNotaCorretagem
                                           .Sum(x => x.Valor);
 
-            this.MaiorSaldoCorretora = lista.OrderByDescending(x => x.SaldoCorretora)
+            this.MaiorSaldoCorretora = listaNotaCorretagem.OrderByDescending(x => x.SaldoCorretora)
                                             .FirstOrDefault()
                                             .SaldoCorretora;
 
-            this.MenorSaldoCorretora = lista.OrderBy(x => x.SaldoCorretora)
+            this.MenorSaldoCorretora = listaNotaCorretagem.OrderBy(x => x.SaldoCorretora)
                                             .FirstOrDefault()
                                             .SaldoCorretora;
 
-            this.MediaGanhos = lista.Where(x => x.Tipo == "NC" && x.Valor > 0)
+            this.MediaGanhos = listaNotaCorretagem.Where(x => x.Valor > 0)
                                     .Average(x => x.Valor);
 
-            this.MediaPerdas = lista.Where(x => x.Tipo == "NC" && x.Valor < 0)
+            this.MediaPerdas = listaNotaCorretagem.Where(x => x.Valor < 0)
                                     .Average(x => x.Valor);
 
-            this.QuantidadeGanhos = lista.Where(x => x.Tipo == "NC" && x.Valor > 0)
+            this.QuantidadeGanhos = listaNotaCorretagem.Where(x => x.Valor > 0)
                                          .Count();
 
-            this.QuantidadePerdas = lista.Where(x => x.Tipo == "NC" &&  x.Tipo == "NC" &&x.Valor < 0)
+            this.QuantidadePerdas = listaNotaCorretagem.Where(x => x.Valor < 0)
                                          .Count();
 
             this.RelacaoGanhoPerda = Math.Abs(MediaGanhos) > Math.Abs(MediaPerdas) ? 
@@ -61,14 +68,14 @@ namespace Dominio.Entidades
                                                 -1* Math.Abs(QuantidadePerdas) / Math.Abs(QuantidadeGanhos);
 
             this.TopGain = new List<KeyValuePair<DateTime, decimal>>();
-            foreach (var item in lista.Where(x => x.Tipo == "NC").OrderByDescending(x => x.Valor).Take(3))
+            foreach (var item in listaNotaCorretagem.OrderByDescending(x => x.Valor).Take(3))
             {
                 this.TopGain.Add(new KeyValuePair<DateTime, decimal>(item.Data, item.Valor));
             }
 
 
             this.TopLoss = new List<KeyValuePair<DateTime, decimal>>();
-            foreach (var item in lista.Where(x => x.Tipo == "NC").OrderBy(x => x.Valor).Take(3))
+            foreach (var item in listaNotaCorretagem.OrderBy(x => x.Valor).Take(3))
             {
                 this.TopLoss.Add(new KeyValuePair<DateTime, decimal>(item.Data, item.Valor));
             }

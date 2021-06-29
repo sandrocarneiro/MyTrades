@@ -16,41 +16,85 @@
 <table class="table">
     <thead>
         <tr>
-            <th class="text-center">
+            <th class="text-center  col-1">
                 @Html.DisplayNameFor(model => model.Periodo)
             </th>
-            <th class="text-right">
-                @Html.DisplayNameFor(model => model.ValorTotal)
+            <th class="text-right col-1">
+                Total(R$)
             </th>
-            <th class="text-right">
+            <th class="text-center  col-1">
+            </th>
+            <th class="text-center col-1">
+                QG
+            </th>
+            <th class="text-center col-1">
+                QP
+            </th>
+            <th class="text-center col-1">
+                QR
+            </th>
+            <th class="text-center  col-1">
+            </th>
+            <th class="text-center col-1">
+                MG (R$)
+            </th>
+            <th class="text-center col-1">
+                MP (R$)
+            </th>
+            <th class="text-center col-1">
+                MR
+            </th>
+            <th class="text-center col-2">
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td class="text-center">
-                    @Html.Label(item.Periodo)
-                </td>
-                <td class="text-right">
-                    @if (item.Negativo)
-                    {
-                        <div style="color:red">
-                            @Html.Label(item.ValorTotal)
-                        </div>
-                    }
-                    else
-                    {
-                        <div style="color:black">
-                            @Html.Label(item.ValorTotal)
-                        </div>
-                    }
-                </td>
-                <td class="text-center">
-                    @Html.ActionLink("Detalhe", "ResumoDiario", new { id = item.ID })
-                </td>
-            </tr>
+        <tr>
+            <td class="text-center">
+                @Html.Label(item.Periodo)
+            </td>
+            <td class="text-right">
+                @if (item.Negativo)
+                {
+                    <div style="color:red">
+                        @Html.Label(item.ValorTotal)
+                    </div>
+                }
+                else
+                {
+                    <div style="color:black">
+                        @Html.Label(item.ValorTotal)
+                    </div>
+                }
+            </td>
+            <td class="text-center">
+            </td>
+            <td class="text-center">
+                @Html.Label(item.QtdeGanhos)
+            </td>
+            <td class="text-center">
+                @Html.Label(item.QtdePerdas)
+            </td>
+            <td class="text-center">
+                @Html.Label(item.QtdeRelacao)
+            </td>
+            <td class="text-center">
+            </td>
+            <td class="text-center">
+                @Html.Label(item.MediaGanhos)
+            </td>
+            <td class="text-center">
+                @Html.Label(item.MediaPerdas)
+            </td>
+            <td class="text-center">
+                @Html.Label(item.MediaRelacao)
+            </td>
+            <td class="text-center">
+                @Html.ActionLink("Detalhe", "ResumoDiario", new { id = item.ID })
+            </td>
+        </tr>
         }
     </tbody>
 </table>

@@ -55,6 +55,12 @@ namespace WebApp.Models
         public int Mes { get; set; }
         public string ValorTotal { get; set; }
         public bool Negativo { get; set; }
+        public string QtdeGanhos { get; set; }
+        public string QtdePerdas { get; set; }
+        public string QtdeRelacao { get; set; }
+        public string MediaGanhos { get; set; }
+        public string MediaPerdas { get; set; }
+        public string MediaRelacao { get; set; }
         public ResumoMensalViewModel(int ano, int mes, decimal valor)
         {
             this.Ano = ano;
@@ -62,6 +68,23 @@ namespace WebApp.Models
             this.ValorTotal = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", valor);
             this.Negativo = valor < 0 ? true : false;
         }
+
+        public ResumoMensalViewModel(int ano, int mes, decimal valor, int qtdeGanhos, int qtdePerdas, decimal mediaGanhos, decimal mediaPerdas)
+        {
+            this.Ano = ano;
+            this.Mes = mes;
+            this.ValorTotal = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", valor);
+            this.Negativo = valor < 0 ? true : false;
+            
+            this.QtdeGanhos = String.Format(new CultureInfo("pt-BR"), "{0:0}", qtdeGanhos);
+            this.QtdePerdas = String.Format(new CultureInfo("pt-BR"), "{0:0}", qtdePerdas);
+            this.QtdeRelacao = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", qtdePerdas == 0 ? 0 : ((Decimal)qtdeGanhos / qtdePerdas));
+
+            this.MediaGanhos = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", mediaGanhos);
+            this.MediaPerdas = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", mediaPerdas);
+            this.MediaRelacao = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", mediaPerdas == 0 ? 0 : (mediaGanhos / Math.Abs(mediaPerdas)));
+        }
+
 
     }
 }

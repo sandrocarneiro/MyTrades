@@ -17,6 +17,13 @@ namespace Dominio.Entidades
                 return this.Data.Year.ToString("D4") + this.Data.Month.ToString("D2");
             }
         }
+        public bool EhNotaCorretagem
+        {
+            get
+            {
+                return this.Tipo == "NC" ? true : false;
+            }
+        }
 
     }
 }

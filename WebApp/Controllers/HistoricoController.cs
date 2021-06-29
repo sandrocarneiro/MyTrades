@@ -21,12 +21,24 @@ namespace WebApp.Controllers
         {
             try
             {
-                List<Historico> lista = this.HistoricoServico.Obter().OrderByDescending(x => x.Data).ToList();
-                var visaoMensal = lista.GroupBy(x => new { x.Data.Year, x.Data.Month })
-                                        .Select(g => new ResumoMensalViewModel(g.Key.Year, g.Key.Month, g.Sum(s => s.Valor)))
-                                        .OrderByDescending(x => x.Ano).ThenByDescending(x => x.Mes)
-                                        .ToList();
-                return View(visaoMensal);
+                List<HistoricoMensal> historicoMensal = this.HistoricoServico.ObterDadosEstatisticosPorMes();
+                List<ResumoMensalViewModel> retorno = historicoMensal.Select(x => new ResumoMensalViewModel(x .Ano, 
+                                                                                                            x.Mes, 
+                                                                                                            x.Total,
+                                                                                                            x.QtdeGanhos, 
+                                                                                                            x.QtdePerdas, 
+                                                                                                            x.MediaGanhos, 
+                                                                                                            x.MediaPerdas))
+                                                                     .ToList();
+                return View(retorno);
+
+
+                //List<Historico> lista = this.HistoricoServico.ObterNotaCorretagem().OrderByDescending(x => x.Data).ToList();
+                //var visaoMensal = lista.GroupBy(x => new { x.Data.Year, x.Data.Month })
+                //                        .Select(g => new ResumoMensalViewModel(g.Key.Year, g.Key.Month, g.Sum(s => s.Valor)))
+                //                        .OrderByDescending(x => x.Ano).ThenByDescending(x => x.Mes)
+                //                        .ToList();
+                //return View(visaoMensal);
             }
             catch (Exception ex)
             {
@@ -38,7 +50,7 @@ namespace WebApp.Controllers
         {
             try
             {
-                List<Historico> lista = this.HistoricoServico.Obter(id).OrderByDescending(x => x.Data).ToList();
+                List<Historico> lista = this.HistoricoServico.ObterNotaCorretagem(id).OrderByDescending(x => x.Data).ToList();
                 var visaoMensal = new ResumoDiarioViewModel(lista);
                 return View(visaoMensal);
             }
