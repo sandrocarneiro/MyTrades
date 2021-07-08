@@ -26,7 +26,7 @@ namespace ServicoAplicacao
 
         public DadosEstatisticos ObterDadosEstatisticos()
         {
-            return new DadosEstatisticos(this.ColecaoHistorico.ObterNotaCorretagem());
+            return new DadosEstatisticos(this.ColecaoHistorico.ObterHistorico());
         }
         public List<HistoricoMensal> ObterDadosEstatisticosPorMes()
         {

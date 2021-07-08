@@ -18,6 +18,12 @@ namespace Infraestrutura.Repositorios
                                         .Where(x => x.EhNotaCorretagem)
                                         .ToList();
         }
+
+        public List<Historico> ObterHistorico()
+        {
+            return this.UnidadeTrabalho.CriarColecaoHistorico()
+                                        .ToList();
+        }
         public List<Historico> ObterNotaCorretagem(string periodo)
         {
             return this.UnidadeTrabalho.CriarColecaoHistorico()

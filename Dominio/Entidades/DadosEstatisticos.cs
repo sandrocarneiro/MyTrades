@@ -30,34 +30,40 @@ namespace Dominio.Entidades
             this.Mes = mes;
         }
 
-        public DadosEstatisticos(List<Historico> listaNotaCorretagem)
+        public DadosEstatisticos(List<Historico> listaHistorico)
         {
-            this.SaldoCorretoraAtual = listaNotaCorretagem.OrderByDescending(x => x.Data)
-                                             .FirstOrDefault()
-                                             .SaldoCorretora;
-
-            this.SaldoTotalTrades = listaNotaCorretagem
-                                          .Sum(x => x.Valor);
-
-            this.MaiorSaldoCorretora = listaNotaCorretagem.OrderByDescending(x => x.SaldoCorretora)
+            this.SaldoCorretoraAtual = listaHistorico
+                                            .OrderByDescending(x => x.Data)
                                             .FirstOrDefault()
                                             .SaldoCorretora;
 
-            this.MenorSaldoCorretora = listaNotaCorretagem.OrderBy(x => x.SaldoCorretora)
+            this.SaldoTotalTrades = listaHistorico
+                                            .Where(x => x.EhNotaCorretagem)
+                                            .Sum(x => x.Valor);
+
+            this.MaiorSaldoCorretora = listaHistorico.OrderByDescending(x => x.SaldoCorretora)
                                             .FirstOrDefault()
                                             .SaldoCorretora;
 
-            this.MediaGanhos = listaNotaCorretagem.Where(x => x.Valor > 0)
-                                    .Average(x => x.Valor);
+            this.MenorSaldoCorretora = listaHistorico.OrderBy(x => x.SaldoCorretora)
+                                            .FirstOrDefault()
+                                            .SaldoCorretora;
 
-            this.MediaPerdas = listaNotaCorretagem.Where(x => x.Valor < 0)
-                                    .Average(x => x.Valor);
+            this.MediaGanhos = listaHistorico
+                                            .Where(x => x.Valor > 0 && x.EhNotaCorretagem)
+                                            .Average(x => x.Valor);
 
-            this.QuantidadeGanhos = listaNotaCorretagem.Where(x => x.Valor > 0)
-                                         .Count();
+            this.MediaPerdas = listaHistorico
+                                            .Where(x => x.Valor < 0 && x.EhNotaCorretagem)
+                                            .Average(x => x.Valor);
 
-            this.QuantidadePerdas = listaNotaCorretagem.Where(x => x.Valor < 0)
-                                         .Count();
+            this.QuantidadeGanhos = listaHistorico
+                                            .Where(x => x.Valor > 0 && x.EhNotaCorretagem)
+                                            .Count();
+
+            this.QuantidadePerdas = listaHistorico
+                                            .Where(x => x.Valor < 0 && x.EhNotaCorretagem)
+                                            .Count();
 
             this.RelacaoGanhoPerda = Math.Abs(MediaGanhos) > Math.Abs(MediaPerdas) ? 
                                         Math.Abs(MediaGanhos) / Math.Abs(MediaPerdas) : 
@@ -68,14 +74,14 @@ namespace Dominio.Entidades
                                                 -1* Math.Abs(QuantidadePerdas) / Math.Abs(QuantidadeGanhos);
 
             this.TopGain = new List<KeyValuePair<DateTime, decimal>>();
-            foreach (var item in listaNotaCorretagem.OrderByDescending(x => x.Valor).Take(3))
+            foreach (var item in listaHistorico.Where(x => x.EhNotaCorretagem).OrderByDescending(x => x.Valor).Take(3))
             {
                 this.TopGain.Add(new KeyValuePair<DateTime, decimal>(item.Data, item.Valor));
             }
 
 
             this.TopLoss = new List<KeyValuePair<DateTime, decimal>>();
-            foreach (var item in listaNotaCorretagem.OrderBy(x => x.Valor).Take(3))
+            foreach (var item in listaHistorico.Where(x => x.EhNotaCorretagem).OrderBy(x => x.Valor).Take(3))
             {
                 this.TopLoss.Add(new KeyValuePair<DateTime, decimal>(item.Data, item.Valor));
             }
