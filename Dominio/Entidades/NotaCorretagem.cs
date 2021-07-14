@@ -90,9 +90,10 @@ namespace Dominio.Entidades
             this.AjusteDayTrade = ajusteDayTrade;
 
             this.TaxaOperacional = 0.00m;
-            this.TaxaRegistro = -0.45m * this.ContratosNegociados * 0.1556m * 2.42m;
+            this.TaxaRegistro = Math.Round(-0.45m * this.ContratosNegociados * 0.1556m * 2.42m, 2);
             this.TaxasBMF = Math.Ceiling((-0.45m * this.ContratosNegociados * 0.133m * 1.35m) * 100) / 100;
             this.IRRF = this.TotalLiquido > 0 ? -1 * this.TotalLiquido / 100 : 0;
+            this.IRRF = Math.Ceiling(this.IRRF * 100) / 100;
             this.ISS = 0.09m * this.TaxaOperacional;
         }
     }
