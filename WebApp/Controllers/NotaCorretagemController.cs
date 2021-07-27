@@ -25,7 +25,7 @@ namespace WebApp.Controllers
             List<NotaCorretagemIndexViewModel> lista = this.NotaCorretagemServico
                                                         .Obter()
                                                         .OrderByDescending(x => x.Data)
-                                                        .Select(x => new NotaCorretagemIndexViewModel(x.ID, x.Data, x.ContratosNegociados, x.TotalLiquidoNota))
+                                                        .Select(x => new NotaCorretagemIndexViewModel(x.ID, x.Data, x.Numero, x.ContratosNegociados, x.TotalLiquidoNota))
                                                         .ToList();
 
             decimal minimo = lista.Min(x => x.TotalLiquidoNota);
