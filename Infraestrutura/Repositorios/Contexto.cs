@@ -2,8 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Text;
-using System.Linq;
+using System.Data.SQLite;
 
 namespace Infraestrutura.Repositorios
 {
@@ -11,10 +10,12 @@ namespace Infraestrutura.Repositorios
     {
         private string ConnectionString;
         private SqlConnection SqlConn;
+        private SQLiteConnection SqliteConn;
 
         public Contexto()
         {
-            this.ConnectionString = "workstation id = mytrade.mssql.somee.com; packet size = 4096; user id = scarneiro_SQLLogin_1; pwd = j9ydgujmxa; data source = mytrade.mssql.somee.com; persist security info = False; initial catalog = mytrade";
+            // this.ConnectionString = "workstation id = mytrade.mssql.somee.com; packet size = 4096; user id = scarneiro_SQLLogin_1; pwd = j9ydgujmxa; data source = mytrade.mssql.somee.com; persist security info = False; initial catalog = mytrade";
+            this.ConnectionString = "Data Source=C:\\Users\\sandr\\source\\repos\\MyTrades\\Infraestrutura\\mytrades.db;Version=3;";
         }
 
         #region Historico
@@ -222,6 +223,34 @@ namespace Infraestrutura.Repositorios
         }
         #endregion
 
+        #region Operação
+        public List<Operacao> CriarColecaoOperacao()
+        {
+            this.SqliteConn = new SQLiteConnection(ConnectionString);
+            SQLiteCommand sqlite_cmd = this.SqliteConn.CreateCommand();
+            sqlite_cmd.CommandText = "SELECT * FROM Operacao";
+            this.SqliteConn.Open();
+            SQLiteDataReader dr = sqlite_cmd.ExecuteReader();
+
+            List<Operacao> lista = new List<Operacao>();
+
+            while (dr.Read())
+            {
+                lista.Add(new Operacao(
+                                            this.ObterInteger(dr["ID"]),
+                                            this.ObterDatetime(dr["DataOperacao"]),
+                                            this.ObterDatetime(dr["DataLiquidacao"]),
+                                            this.ObterDecimal(dr["Valor"]),
+                                            this.ObterString(dr["Descricao"])
+                                             )
+                          );
+            }
+            dr.Close();
+            this.SqliteConn.Close();
+            return lista;
+        }
+        #endregion
+
         #region Métodos Privados
         private DateTime ObterDatetime(object valor)
         {
@@ -240,5 +269,6 @@ namespace Infraestrutura.Repositorios
             return valor == System.DBNull.Value ? "" : valor.ToString();
         }
         #endregion
+
     }
 }

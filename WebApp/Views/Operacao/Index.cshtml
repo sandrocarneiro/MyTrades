@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebApp.Models.OperacaoViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Operações - Listagem</h4>
+
+<p>
+    <div class="col-xl-2 col-lg-4">
+        @Html.ActionLink("Importar", "Importar", "Operacao", null, new { @class = "btn btn-primary" })
+    </div>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center">Data Operação</th>
+            <th class="text-right">Data Liquidação</th>
+            <th class="text-right">Valor (R$)</th>
+            <th class="text-right">Descrição</th>
+            <th class="text-right"></th>
+            <th class="text-right"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (OperacaoViewModel item in Model)
+        {
+        <tr>
+            <td class="text-center">
+                @Html.Label(item.DataOperacao)
+            </td>
+            <td class="text-right">
+                @Html.Label(item.DataLiquidacao)
+            </td>
+            <td class="text-right">
+                @Html.Label(item.Valor)
+            </td>
+            <td class="text-right">
+                @Html.Label(item.Descricao)
+            </td>
+            <td class="border-0"></td>
+        </tr>
+        }
+    </tbody>
+</table>
