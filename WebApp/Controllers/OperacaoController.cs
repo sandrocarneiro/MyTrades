@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using ServicoAplicacao;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using WebApp.Models;
 
@@ -25,6 +29,19 @@ namespace WebApp.Controllers
         }
 
 
+        [HttpPost("FileUpload")]
+        public async Task<IActionResult> Importar(IFormFile arquivo)
+        {
+            List<string> operacoes = new List<string>();
+
+            using (var reader = new StreamReader(arquivo.OpenReadStream()))
+            {
+                while (reader.Peek() >= 0)
+                    operacoes.Add(reader.ReadLine());
+            }
+            this.OperacaoServico.Importar(operacoes);
+            return RedirectToAction("Index");
+        }
 
     }
 }

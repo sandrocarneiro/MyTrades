@@ -16,7 +16,6 @@ namespace Dominio.Entidades
             this.Valor = valor;
             this.Descricao = descricao;
         }
-
         public int ID { get; set; }
         public DateTime DataOperacao { get; set; }
         public DateTime DataLiquidacao { get; set; }

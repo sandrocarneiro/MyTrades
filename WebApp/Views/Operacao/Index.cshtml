@@ -9,7 +9,15 @@
 
 <p>
     <div class="col-xl-2 col-lg-4">
-        @Html.ActionLink("Importar", "Importar", "Operacao", null, new { @class = "btn btn-primary" })
+        @* @Html.ActionLink("Importar", "Importar", "Operacao", null, new { @class = "btn btn-primary" }) *@
+        @using (Html.BeginForm("Importar", "Operacao", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div>
+                @Html.TextBox("arquivo", "", new { type = "file" }) <br />
+                <input type="submit" value="Upload" />
+                @ViewBag.Message
+            </div>
+        }
     </div>
 </p>
 

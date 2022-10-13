@@ -227,9 +227,9 @@ namespace Infraestrutura.Repositorios
         public List<Operacao> CriarColecaoOperacao()
         {
             this.SqliteConn = new SQLiteConnection(ConnectionString);
-            SQLiteCommand sqlite_cmd = this.SqliteConn.CreateCommand();
-            sqlite_cmd.CommandText = "SELECT * FROM Operacao";
             this.SqliteConn.Open();
+            SQLiteCommand sqlite_cmd = this.SqliteConn.CreateCommand();
+            sqlite_cmd.CommandText = "SELECT * FROM Operacao ORDER BY DataOperacao, ID";
             SQLiteDataReader dr = sqlite_cmd.ExecuteReader();
 
             List<Operacao> lista = new List<Operacao>();
@@ -248,6 +248,20 @@ namespace Infraestrutura.Repositorios
             dr.Close();
             this.SqliteConn.Close();
             return lista;
+        }
+        public void InserirOperacao(DateTime dataOperacao, DateTime dataLiquidacao, Decimal valor, String descricao)
+        {
+            this.SqliteConn = new SQLiteConnection(ConnectionString);
+            this.SqliteConn.Open();
+            SQLiteCommand sqlite_cmd = this.SqliteConn.CreateCommand();
+            sqlite_cmd.CommandText = "INSERT INTO Operacao(DataOperacao, DataLiquidacao, Valor, Descricao) VALUES(@DataOperacao, @DataLiquidacao, @Valor, @Descricao); ";
+            sqlite_cmd.Parameters.AddWithValue("@DataOperacao", dataOperacao);
+            sqlite_cmd.Parameters.AddWithValue("@DataLiquidacao", dataLiquidacao);
+            sqlite_cmd.Parameters.AddWithValue("@Valor", valor);
+            sqlite_cmd.Parameters.AddWithValue("@Descricao", descricao);
+
+            sqlite_cmd.ExecuteNonQuery();
+            this.SqliteConn.Close();
         }
         #endregion
 
@@ -268,6 +282,8 @@ namespace Infraestrutura.Repositorios
         {
             return valor == System.DBNull.Value ? "" : valor.ToString();
         }
+
+
         #endregion
 
     }

@@ -18,5 +18,14 @@ namespace Infraestrutura.Repositorios
             return this.UnidadeTrabalho.CriarColecaoOperacao()
                        .ToList();
         }
+
+        public void Importar(List<string> operacoes)
+        {
+            foreach(string operacao in operacoes.Skip(1).ToList())
+            {
+                var campos = operacao.Split(";");
+                this.UnidadeTrabalho.InserirOperacao(Convert.ToDateTime(campos[0]), Convert.ToDateTime(campos[1]), Convert.ToDecimal(campos[2]), campos[3]);
+            }
+        }
     }
 }
