@@ -1,0 +1,31 @@
+﻿@model IEnumerable<WebApp.Models.ResumoDiarioViewModel>
+
+@{
+    ViewData["Title"] = "Histórico";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Histórico</h4>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center">Data Operação</th>
+            <th class="text-right">Valor (R$)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ResumoDiarioViewModel item in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    @Html.Label(item.DataOperacao)
+                </td>
+                <td class="text-right">
+                    @Html.Label(item.Total)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

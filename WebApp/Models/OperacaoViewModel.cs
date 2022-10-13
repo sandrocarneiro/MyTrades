@@ -15,9 +15,9 @@ namespace WebApp.Models
         public OperacaoViewModel(int id, DateTime dataOperacao, DateTime dataLiquidacao, decimal valor, string descricao)
         {
             this.ID = id.ToString();
-            this.DataOperacao = dataOperacao.ToString();
-            this.DataLiquidacao = dataLiquidacao.ToString();
-            this.Valor = valor.ToString();
+            this.DataOperacao = dataOperacao.ToString("dd/MM/yyyy");
+            this.DataLiquidacao = dataLiquidacao.ToString("dd/MM/yyyy");
+            this.Valor = String.Format("{0: #, ##0.00; (#,##0.00)} ", valor);
             this.Descricao = descricao;
         }
     }

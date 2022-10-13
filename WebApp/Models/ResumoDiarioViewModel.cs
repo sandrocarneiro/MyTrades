@@ -1,17 +1,19 @@
-﻿using Dominio.Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace WebApp.Models
 {
     public class ResumoDiarioViewModel
     {
-        public List<HistoricoViewModel> ListaHistoricoViewModel { get; set; }
-        public ResumoDiarioViewModel(List<Historico> lista)
+        public string DataOperacao { get; set; }
+        public string Total { get; set; }
+        public ResumoDiarioViewModel()
         {
-            this.ListaHistoricoViewModel = lista.Select(x => new HistoricoViewModel(x.Data, x.Tipo, x.Valor, x.SaldoCorretora)).ToList();
+
+        }
+        public ResumoDiarioViewModel(DateTime dataOperacao, decimal valor)
+        {
+            this.DataOperacao = dataOperacao.ToString("dd/MM/yyyy");
+            this.Total = String.Format("{0: #, ##0.00; (#,##0.00)} ", valor);
         }
     }
 }

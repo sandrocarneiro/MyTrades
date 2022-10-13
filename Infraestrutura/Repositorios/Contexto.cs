@@ -259,10 +259,25 @@ namespace Infraestrutura.Repositorios
             sqlite_cmd.Parameters.AddWithValue("@DataLiquidacao", dataLiquidacao);
             sqlite_cmd.Parameters.AddWithValue("@Valor", valor);
             sqlite_cmd.Parameters.AddWithValue("@Descricao", descricao);
-
             sqlite_cmd.ExecuteNonQuery();
             this.SqliteConn.Close();
         }
+        public void DeletarOperacoes(List<DateTime> datasOperacoes)
+        {
+            this.SqliteConn = new SQLiteConnection(ConnectionString);
+            this.SqliteConn.Open();
+            SQLiteCommand sqlite_cmd = this.SqliteConn.CreateCommand();
+
+            foreach(DateTime dataOperacao in datasOperacoes)
+            {
+                sqlite_cmd.CommandText = "DELETE FROM Operacao WHERE DataOperacao = @DataOperacao; ";
+                sqlite_cmd.Parameters.AddWithValue("@DataOperacao", dataOperacao);
+                sqlite_cmd.ExecuteNonQuery();
+            }
+
+            this.SqliteConn.Close();
+        }
+
         #endregion
 
         #region Métodos Privados
@@ -282,7 +297,6 @@ namespace Infraestrutura.Repositorios
         {
             return valor == System.DBNull.Value ? "" : valor.ToString();
         }
-
 
         #endregion
 

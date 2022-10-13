@@ -17,6 +17,6 @@ namespace Infraestrutura.Repositorios
         void Inserir(MovimentacaoContaCorrente movimentacaoCC);
         void InserirOperacao(DateTime dataOperacao, DateTime dataLiquidacao, Decimal valor, String descricao);
         void Atualizar(NotaCorretagem nota);
-
+        void DeletarOperacoes(List<DateTime> dateTimes);
     }
 }

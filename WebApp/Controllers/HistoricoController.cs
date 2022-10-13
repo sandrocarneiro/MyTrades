@@ -48,16 +48,17 @@ namespace WebApp.Controllers
 
         public IActionResult ResumoDiario(string id)
         {
-            try
-            {
-                List<Historico> lista = this.HistoricoServico.ObterNotaCorretagem(id).OrderByDescending(x => x.Data).ToList();
-                var visaoMensal = new ResumoDiarioViewModel(lista);
-                return View(visaoMensal);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            throw new NotImplementedException();
+            //try
+            //{
+            //    List<Historico> lista = this.HistoricoServico.ObterNotaCorretagem(id).OrderByDescending(x => x.Data).ToList();
+            //    var visaoMensal = new ResumoDiarioViewModel(lista);
+            //    return View(visaoMensal);
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
     }
 }
