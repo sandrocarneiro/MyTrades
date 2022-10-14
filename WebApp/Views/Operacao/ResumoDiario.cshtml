@@ -11,20 +11,20 @@
     <thead>
         <tr>
             <th class="text-center">Data Operação</th>
-            <th class="text-right">Valor (R$)</th>
+            <th class="text-right">Total (R$)</th>
         </tr>
     </thead>
     <tbody>
         @foreach (ResumoDiarioViewModel item in Model)
         {
-        <tr>
-            <td class="text-center">
-                @Html.Label(item.DataOperacao)
-            </td>
-            <td class="text-right">
-                @Html.Label(item.Total)
-            </td>
-        </tr>
+            <tr>
+                <td class="text-center">
+                    @Html.Label(item.DataOperacao.ToString("dd/MM/yyyy"))
+                </td>
+                <td class="text-right" @( Convert.ToDecimal(item.Total) > 0 ? Html.Raw("style='color:blue'") : Html.Raw("style='color:red'") )>
+                    @Html.Label(String.Format("{0: #, ##0.00; (#,##0.00)} ", item.Total))
+                </td>
+            </tr>
         }
     </tbody>
 </table>
