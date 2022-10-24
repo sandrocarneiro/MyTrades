@@ -10,9 +10,11 @@ namespace ServicoAplicacao
     public class HistoricoServico
     {
         private HistoricoRepositorio ColecaoHistorico;
+        private OperacaoRepositorio ColeacoOperacao;
         public HistoricoServico()
         {
             this.ColecaoHistorico = new HistoricoRepositorio();
+            this.ColeacoOperacao = new OperacaoRepositorio();
         }
         public List<Historico> ObterNotaCorretagem(string periodo)
         {
@@ -26,7 +28,7 @@ namespace ServicoAplicacao
 
         public DadosEstatisticos ObterDadosEstatisticos()
         {
-            return new DadosEstatisticos(this.ColecaoHistorico.ObterHistorico());
+            return new DadosEstatisticos(this.ColeacoOperacao.Obter());            
         }
         public List<HistoricoMensal> ObterDadosEstatisticosPorMes()
         {
@@ -46,7 +48,7 @@ namespace ServicoAplicacao
                                             .Count();
 
 
-                decimal mediaGanhos = lista.Where(x => x.Data.Year == item.Key.Year && 
+                decimal mediaGanhos = lista.Where(x => x.Data.Year == item.Key.Year &&
                                                        x.Data.Month == item.Key.Month &&
                                                        x.Valor > 0)
                                             .Average(x => x.Valor);
@@ -66,4 +68,4 @@ namespace ServicoAplicacao
             return historicoMensal;
         }
     }
-} 
+}

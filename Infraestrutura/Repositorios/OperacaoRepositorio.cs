@@ -18,6 +18,12 @@ namespace Infraestrutura.Repositorios
             return this.UnidadeTrabalho.CriarColecaoOperacao()
                        .ToList();
         }
+        public List<Operacao> ObterPorAno(int ano)
+        {
+            return this.UnidadeTrabalho.CriarColecaoOperacao()
+                       .Where(x => x.DataOperacao.Year == ano)
+                       .ToList();
+        }
 
         public void Importar(List<string> operacoes)
         {

@@ -22,5 +22,25 @@ namespace Dominio.Entidades
         public decimal Valor { get; set; }
         public string Descricao { get; set; }
         public decimal SaldoFinal { get; set; }
+        public string TipoOperacao
+        {
+            get
+            {
+                if (this.Descricao.StartsWith("AJUSTE DAY-TRADE"))
+                    return "DAYTRADE";
+                else if (this.Descricao.StartsWith("BMF - TAXA EMOLUMENTOS"))
+                    return "EMOLUMENTOS";
+                else if (this.Descricao.StartsWith("BMF - TAXA DE REGISTRO"))
+                    return "REGISTRO";
+                else if (this.Descricao.StartsWith("IRRF S/ DAY TRADE"))
+                    return "IRRF";
+                else if (this.Descricao.StartsWith("TED BCO"))
+                    return "DEPOSITO";
+                else if (this.Descricao.StartsWith("AJUSTE"))
+                    return "AJUSTE";
+                else
+                    return "";
+            }
+        }
     }
 }

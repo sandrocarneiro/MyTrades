@@ -27,7 +27,8 @@
     <thead>
         <tr>
             <th class="text-center">Data Operação</th>
-            <th class="text-right">Data Liquidação</th>
+            <th class="text-center">Data Liquidação</th>
+            <th class="text-center">Tipo</th>
             <th class="text-right">Valor (R$)</th>
             <th class="text-left">Descrição</th>
             <th class="text-right"></th>
@@ -41,8 +42,11 @@
             <td class="text-center">
                 @Html.Label(item.DataOperacao)
             </td>
-            <td class="text-right">
+            <td class="text-center">
                 @Html.Label(item.DataLiquidacao)
+            </td>
+            <td class="text-left">
+                @Html.Label(item.TipoOperacao)
             </td>
             <td class="text-right">
                 @Html.Label(item.Valor)

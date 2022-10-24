@@ -49,25 +49,25 @@ namespace Infraestrutura.Repositorios
 
         public List<Historico> CriarColecaoHistorico()
         {
-            this.SqlConn = new SqlConnection(ConnectionString);
-            this.SqlConn.Open();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Historico", this.SqlConn);
-            SqlDataReader dr = cmd.ExecuteReader();
+            //this.SqlConn = new SqlConnection(ConnectionString);
+            //this.SqlConn.Open();
+            //SqlCommand cmd = new SqlCommand("SELECT * FROM Historico", this.SqlConn);
+            //SqlDataReader dr = cmd.ExecuteReader();
 
             List<Historico> lista = new List<Historico>();
 
-            while (dr.Read())
-            {
-                lista.Add(new Historico()
-                {
-                    Data = this.ObterDatetime(dr["Data"]),
-                    Valor = this.ObterDecimal(dr["Valor"]),
-                    Tipo = this.ObterString(dr["Tipo"]),
-                    SaldoCorretora = this.ObterDecimal(dr["SaldoCorretora"])
-                });
-            }
-            dr.Close();
-            this.SqlConn.Close();
+            //while (dr.Read())
+            //{
+            //    lista.Add(new Historico()
+            //    {
+            //        Data = this.ObterDatetime(dr["Data"]),
+            //        Valor = this.ObterDecimal(dr["Valor"]),
+            //        Tipo = this.ObterString(dr["Tipo"]),
+            //        SaldoCorretora = this.ObterDecimal(dr["SaldoCorretora"])
+            //    });
+            //}
+            //dr.Close();
+            //this.SqlConn.Close();
             return lista;
         }
         #endregion

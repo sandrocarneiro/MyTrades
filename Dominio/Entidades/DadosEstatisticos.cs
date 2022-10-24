@@ -7,84 +7,111 @@ namespace Dominio.Entidades
 {
     public class DadosEstatisticos
     {
-        public int Ano { get; set; }
-        public int Mes { get; set; }
         public decimal SaldoCorretoraAtual { get; set; }
-        public decimal SaldoTotalTrades { get; set; }
+        public decimal SaldoTradesPeriodo { get; set; }
         public decimal SaldoMesAtual { get; set; }
         public decimal MaiorSaldoCorretora { get; set; }
         public decimal MenorSaldoCorretora { get; set; }
-        public decimal MediaGanhos { get; set; }
-        public decimal MediaPerdas { get; set; }
-        public decimal RelacaoGanhoPerda { get; set; }
-        public decimal QuantidadeGanhos { get; set; }
-        public decimal QuantidadePerdas { get; set; }
-        public decimal RelacaoQuantidadeGanhoPerda { get; set; }
+        public decimal MediaGanhosDia { get; set; }
+        public decimal MediaPerdasDia { get; set; }
+        public decimal RelacaoGanhoPerda
+        {
+            get
+            {
+                return Math.Abs(this.MediaPerdasDia) == 0 ? 0 : Math.Abs(this.MediaGanhosDia) / Math.Abs(this.MediaPerdasDia);
+            }
+        }
+        public decimal QuantidadeDiasGanhos { get; set; }
+        public decimal QuantidadeDiasPerdas { get; set; }
+        public decimal RelacaoQuantidadeGanhoPerda
+        {
+            get
+            {
+                return Math.Abs(QuantidadeDiasPerdas) == 0 ? 0 : Math.Abs(QuantidadeDiasGanhos) / Math.Abs(QuantidadeDiasPerdas);
+            }
+        }
 
         public List<KeyValuePair<DateTime, decimal>> TopGain { get; set; }
         public List<KeyValuePair<DateTime, decimal>> TopLoss { get; set; }
 
-        public DadosEstatisticos(int ano, int mes, decimal valor)
-        {
-            this.Ano = ano;
-            this.Mes = mes;
-        }
-
         public DadosEstatisticos(List<Historico> listaHistorico)
         {
-            this.SaldoCorretoraAtual = listaHistorico
+            this.SaldoCorretoraAtual = 0; /*listaHistorico
                                             .OrderByDescending(x => x.Data)
                                             .FirstOrDefault()
-                                            .SaldoCorretora;
+                                            .SaldoCorretora;*/
 
-            this.SaldoTotalTrades = listaHistorico
+            /*this.SaldoTotalTrades = 0; listaHistorico
                                             .Where(x => x.EhNotaCorretagem)
-                                            .Sum(x => x.Valor);
+                                            .Sum(x => x.Valor);*/
 
-            this.MaiorSaldoCorretora = listaHistorico.OrderByDescending(x => x.SaldoCorretora)
+            this.MaiorSaldoCorretora = 0; /*listaHistorico.OrderByDescending(x => x.SaldoCorretora)
                                             .FirstOrDefault()
-                                            .SaldoCorretora;
+                                            .SaldoCorretora;*/
 
-            this.MenorSaldoCorretora = listaHistorico.OrderBy(x => x.SaldoCorretora)
+            this.MenorSaldoCorretora = 0; /*listaHistorico.OrderBy(x => x.SaldoCorretora)
                                             .FirstOrDefault()
-                                            .SaldoCorretora;
+                                            .SaldoCorretora;*/
 
-            this.MediaGanhos = listaHistorico
+            this.MediaGanhosDia = 0; /*listaHistorico
                                             .Where(x => x.Valor > 0 && x.EhNotaCorretagem)
-                                            .Average(x => x.Valor);
+                                            .Average(x => x.Valor);*/
 
-            this.MediaPerdas = listaHistorico
+            this.MediaPerdasDia = 0; /*listaHistorico
                                             .Where(x => x.Valor < 0 && x.EhNotaCorretagem)
-                                            .Average(x => x.Valor);
+                                            .Average(x => x.Valor);*/
 
-            this.QuantidadeGanhos = listaHistorico
+            this.QuantidadeDiasGanhos = 0; /*listaHistorico
                                             .Where(x => x.Valor > 0 && x.EhNotaCorretagem)
-                                            .Count();
+                                            .Count();*/
 
-            this.QuantidadePerdas = listaHistorico
+            this.QuantidadeDiasPerdas = 0; /*listaHistorico
                                             .Where(x => x.Valor < 0 && x.EhNotaCorretagem)
-                                            .Count();
+                                            .Count();*/
 
-            this.RelacaoGanhoPerda = Math.Abs(MediaGanhos) > Math.Abs(MediaPerdas) ? 
+            /*this.RelacaoGanhoPerda = 0; Math.Abs(MediaGanhos) > Math.Abs(MediaPerdas) ? 
                                         Math.Abs(MediaGanhos) / Math.Abs(MediaPerdas) : 
-                                        -1 * Math.Abs(MediaPerdas) / Math.Abs(MediaGanhos);
+                                        -1 * Math.Abs(MediaPerdas) / Math.Abs(MediaGanhos);*/
 
-            this.RelacaoQuantidadeGanhoPerda = Math.Abs(QuantidadeGanhos) > Math.Abs(QuantidadePerdas) ? 
+            /*this.RelacaoQuantidadeGanhoPerda = 0; Math.Abs(QuantidadeGanhos) > Math.Abs(QuantidadePerdas) ? 
                                                 Math.Abs(QuantidadeGanhos) / Math.Abs(QuantidadePerdas) : 
-                                                -1* Math.Abs(QuantidadePerdas) / Math.Abs(QuantidadeGanhos);
+                                                -1* Math.Abs(QuantidadePerdas) / Math.Abs(QuantidadeGanhos);*/
 
             this.TopGain = new List<KeyValuePair<DateTime, decimal>>();
-            foreach (var item in listaHistorico.Where(x => x.EhNotaCorretagem).OrderByDescending(x => x.Valor).Take(3))
-            {
-                this.TopGain.Add(new KeyValuePair<DateTime, decimal>(item.Data, item.Valor));
-            }
+            //foreach (var item in listaHistorico.Where(x => x.EhNotaCorretagem).OrderByDescending(x => x.Valor).Take(3))
+            //{
+            //    this.TopGain.Add(new KeyValuePair<DateTime, decimal>(item.Data, item.Valor));
+            //}
 
 
             this.TopLoss = new List<KeyValuePair<DateTime, decimal>>();
-            foreach (var item in listaHistorico.Where(x => x.EhNotaCorretagem).OrderBy(x => x.Valor).Take(3))
-            {
-                this.TopLoss.Add(new KeyValuePair<DateTime, decimal>(item.Data, item.Valor));
-            }
+            //foreach (var item in listaHistorico.Where(x => x.EhNotaCorretagem).OrderBy(x => x.Valor).Take(3))
+            //{
+            //    this.TopLoss.Add(new KeyValuePair<DateTime, decimal>(item.Data, item.Valor));
+            //}
+
+        }
+
+        public DadosEstatisticos(List<Operacao> todasOperacoes)
+        {
+            var ops = new[] { "DAYTRADE", "EMOLUMENTOS", "REGISTRO", "IRRF" };
+
+            List<ResultadoPorDia> resultadosPorDia = todasOperacoes
+                                                            .Where(x => ops.Contains(x.TipoOperacao))
+                                                            .GroupBy(x => x.DataOperacao)
+                                                            .Select(x => new ResultadoPorDia
+                                                            {
+                                                                DataOperacao = x.First().DataOperacao,
+                                                                Valor = x.Sum(y => y.Valor)
+                                                            })
+                                                            .ToList();
+
+            this.SaldoCorretoraAtual = todasOperacoes.Sum(x => x.Valor);
+            this.SaldoTradesPeriodo = resultadosPorDia.Where(x => x.DataOperacao.Year == DateTime.Now.Year).Sum(x => x.Valor);
+            this.MediaGanhosDia = resultadosPorDia.Where(x => x.Valor > 0).Average(x => x.Valor);
+            this.MediaPerdasDia = resultadosPorDia.Where(x => x.Valor < 0).Average(x => x.Valor);
+            this.QuantidadeDiasGanhos = resultadosPorDia.Where(x => x.Valor > 0).Count();
+            this.QuantidadeDiasPerdas = resultadosPorDia.Where(x => x.Valor < 0).Count();
 
         }
     }

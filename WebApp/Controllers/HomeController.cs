@@ -23,9 +23,9 @@ namespace WebApp.Controllers
         }
 
         public IActionResult Index()
-        {
-            // return View(new HomeIndexViewModel(this.HistoricoServico.ObterDadosEstatisticos()));
-            return RedirectToAction("Index", "Operacao");
+        {            
+            return View(new HomeIndexViewModel(DateTime.Now.Year, this.HistoricoServico.ObterDadosEstatisticos()));
+            //return RedirectToAction("Index", "Operacao");
         }
 
         public IActionResult Privacy()

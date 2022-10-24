@@ -24,7 +24,7 @@ namespace WebApp.Controllers
         {
             return View(this.OperacaoServico.Obter()
                                             .OrderByDescending(x => x.DataOperacao )
-                                            .Select(x => new OperacaoViewModel(x.ID, x.DataOperacao, x.DataLiquidacao, x.Valor, x.Descricao))
+                                            .Select(x => new OperacaoViewModel(x.ID, x.DataOperacao, x.DataLiquidacao, x.Valor, x.Descricao, x.TipoOperacao))
                                             .ToList());
         }
         [HttpPost("FileUpload")]

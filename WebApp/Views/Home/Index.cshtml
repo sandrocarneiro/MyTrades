@@ -5,33 +5,29 @@
 }
 
 <div class="container-fluid bg-3 text-center">
-    <h3>Mercado Mini-Índices</h3><br>
+    <h3>Mercado Mini-Índices - @Html.Label(Model.AnoRefefrencia.ToString())</h3><br>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <p class="p-3 mb-2 bg-info text-white">Saldo Corretora Atual</p>
             <p>@Html.Label(Model.SaldoCorretoraAtual)</p>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <p class="p-3 mb-2 bg-info text-white">Saldo Total dos Trades</p>
-            <p>@Html.Label(Model.SaldoTotalTrades)</p>
+            <p>@Html.Label(Model.SaldoTradesPeriodo)</p>
         </div>
-        <div class="col-sm-3">
-            <p class="p-3 mb-2 bg-info text-white">Maior Saldo Corretora</p>
-            <p>@Html.Label(Model.MaiorSaldoCorretora)</p>
-        </div>
-        <div class="col-sm-3">
-            <p class="p-3 mb-2 bg-info text-white">Menor Saldo Corretora</p>
-            <p>@Html.Label(Model.MenorSaldoCorretora)</p>
-        </div>
+        <div class="col-sm-4">
+            @*<p class="p-3 mb-2 bg-info text-white">Maior Saldo Corretora</p>
+            <p>@Html.Label(Model.MaiorSaldoCorretora)</p>*@
+        </div>        
     </div>
     <div class="row">
         <div class="col-sm-4">
-            <p class="p-3 mb-2 bg-info text-white">Média de ganhos</p>
-            <p>@Html.Label(Model.MediaGanhos)</p>
+            <p class="p-3 mb-2 bg-info text-white">Média de ganhos por dia</p>
+            <p>@Html.Label(Model.MediaGanhosDia)</p>
         </div>
         <div class="col-sm-4">
             <p class="p-3 mb-2 bg-info text-white">Média de perdas</p>
-            <p>@Html.Label(Model.MediaPerdas)</p>
+            <p>@Html.Label(Model.MediaPerdasDia)</p>
         </div>
         <div class="col-sm-4">
             <p class="p-3 mb-2 bg-info text-white">Relação</p>
@@ -40,11 +36,11 @@
     </div>
     <div class="row">
         <div class="col-sm-4">
-            <p class="p-3 mb-2 bg-info text-white">Quantidade ganhos</p>
+            <p class="p-3 mb-2 bg-info text-white">Quantidade dias com ganhos</p>
             <p>@Html.Label(Model.QuantidadeGanhos)</p>
         </div>
         <div class="col-sm-4">
-            <p class="p-3 mb-2 bg-info text-white">Quantidade de perdas</p>
+            <p class="p-3 mb-2 bg-info text-white">Quantidade dias com perdas</p>
             <p>@Html.Label(Model.QuantidadePerdas)</p>
         </div>
         <div class="col-sm-4">
