@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Dominio.Entidades;
+﻿using Dominio.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using ServicoAplicacao;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -22,12 +21,12 @@ namespace WebApp.Controllers
             try
             {
                 List<HistoricoMensal> historicoMensal = this.HistoricoServico.ObterDadosEstatisticosPorMes();
-                List<ResumoMensalViewModel> retorno = historicoMensal.Select(x => new ResumoMensalViewModel(x .Ano, 
-                                                                                                            x.Mes, 
+                List<ResumoMensalViewModel> retorno = historicoMensal.Select(x => new ResumoMensalViewModel(x.Ano,
+                                                                                                            x.Mes,
                                                                                                             x.Total,
-                                                                                                            x.QtdeGanhos, 
-                                                                                                            x.QtdePerdas, 
-                                                                                                            x.MediaGanhos, 
+                                                                                                            x.QtdeGanhos,
+                                                                                                            x.QtdePerdas,
+                                                                                                            x.MediaGanhos,
                                                                                                             x.MediaPerdas))
                                                                      .ToList();
                 return View(retorno);

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Dominio.Entidades
 {
@@ -10,7 +8,7 @@ namespace Dominio.Entidades
         public string Tipo { get; set; }
         public decimal Valor { get; set; }
         public decimal SaldoCorretora { get; set; }
-        public string Periodo 
+        public string Periodo
         {
             get
             {

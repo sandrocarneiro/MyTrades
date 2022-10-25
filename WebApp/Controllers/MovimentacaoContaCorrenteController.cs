@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Dominio.Entidades;
-using Dominio.Servicos;
+﻿using Dominio.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using ServicoAplicacao;
+using System;
 
 namespace WebApp.Controllers
 {

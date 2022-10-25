@@ -1,8 +1,6 @@
 ﻿using Dominio.Entidades;
 using Infraestrutura.Repositorios;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ServicoAplicacao
 {

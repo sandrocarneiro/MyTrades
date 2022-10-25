@@ -28,13 +28,13 @@ namespace Infraestrutura.Repositorios
         {
             return this.UnidadeTrabalho.CriarColecaoHistorico()
                                         .Where(x => x.EhNotaCorretagem &&
-                                                    x.Periodo == periodo )
+                                                    x.Periodo == periodo)
                                         .ToList();
         }
         public void Atualizar(List<Historico> listaHistorico)
         {
             this.UnidadeTrabalho.Atualizar(listaHistorico);
-            
+
         }
     }
 }

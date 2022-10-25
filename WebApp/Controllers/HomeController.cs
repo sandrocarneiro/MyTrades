@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Dominio.Entidades;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ServicoAplicacao;
+using System;
+using System.Diagnostics;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -23,7 +19,7 @@ namespace WebApp.Controllers
         }
 
         public IActionResult Index()
-        {            
+        {
             return View(new HomeIndexViewModel(DateTime.Now.Year, this.HistoricoServico.ObterDadosEstatisticos()));
             //return RedirectToAction("Index", "Operacao");
         }

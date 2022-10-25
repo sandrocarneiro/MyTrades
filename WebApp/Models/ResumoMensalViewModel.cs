@@ -1,9 +1,5 @@
-﻿using Dominio.Entidades;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApp.Models
 {
@@ -75,7 +71,7 @@ namespace WebApp.Models
             this.Mes = mes;
             this.ValorTotal = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", valor);
             this.Negativo = valor < 0 ? true : false;
-            
+
             this.QtdeGanhos = String.Format(new CultureInfo("pt-BR"), "{0:0}", qtdeGanhos);
             this.QtdePerdas = String.Format(new CultureInfo("pt-BR"), "{0:0}", qtdePerdas);
             this.QtdeRelacao = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", qtdePerdas == 0 ? 0 : ((Decimal)qtdeGanhos / qtdePerdas));

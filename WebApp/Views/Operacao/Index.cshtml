@@ -31,8 +31,6 @@
             <th class="text-center">Tipo</th>
             <th class="text-right">Valor (R$)</th>
             <th class="text-left">Descrição</th>
-            <th class="text-right"></th>
-            <th class="text-right"></th>
         </tr>
     </thead>
     <tbody>
@@ -40,21 +38,20 @@
         {
         <tr>
             <td class="text-center">
-                @Html.Label(item.DataOperacao)
+                @item.DataOperacao
             </td>
             <td class="text-center">
-                @Html.Label(item.DataLiquidacao)
+                @item.DataLiquidacao
             </td>
             <td class="text-left">
-                @Html.Label(item.TipoOperacao)
+                @item.TipoOperacao
             </td>
             <td class="text-right">
-                @Html.Label(item.Valor)
+                @item.Valor
             </td>
             <td class="text-left">
-                @Html.Label(item.Descricao)
+                @item.Descricao.Trim()
             </td>
-            <td class="border-0"></td>
         </tr>
         }
     </tbody>

@@ -268,7 +268,7 @@ namespace Infraestrutura.Repositorios
             this.SqliteConn.Open();
             SQLiteCommand sqlite_cmd = this.SqliteConn.CreateCommand();
 
-            foreach(DateTime dataOperacao in datasOperacoes)
+            foreach (DateTime dataOperacao in datasOperacoes)
             {
                 sqlite_cmd.CommandText = "DELETE FROM Operacao WHERE DataOperacao = @DataOperacao; ";
                 sqlite_cmd.Parameters.AddWithValue("@DataOperacao", dataOperacao);

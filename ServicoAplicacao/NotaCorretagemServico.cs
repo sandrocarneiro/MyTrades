@@ -3,7 +3,6 @@ using Dominio.Servicos;
 using Infraestrutura.Repositorios;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ServicoAplicacao
 {
@@ -26,7 +25,7 @@ namespace ServicoAplicacao
             return this.ColecaoNotaCorretagem.Obter();
         }
         public void Inserir(NotaCorretagem notaCorretagem)
-        {            
+        {
             this.ColecaoNotaCorretagem.Inserir(notaCorretagem);
             this.AtualizarHistorico();
         }

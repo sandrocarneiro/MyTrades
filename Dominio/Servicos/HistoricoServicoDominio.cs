@@ -1,7 +1,5 @@
 ﻿using Dominio.Entidades;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace Dominio.Servicos
@@ -14,7 +12,7 @@ namespace Dominio.Servicos
             List<Historico> historico = listaNotasPosteriores
                                             .Select(x => new Historico { Data = x.Data, Tipo = "NC", Valor = x.TotalLiquidoNota })
                                             .ToList();
-            
+
             historico.AddRange(movimentacaoCC.Select(x => new Historico { Data = x.Data, Tipo = "CC", Valor = x.Valor })
                                              .ToList());
 

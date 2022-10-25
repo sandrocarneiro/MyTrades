@@ -1,8 +1,6 @@
 ﻿using Dominio.Entidades;
 using Infraestrutura.Repositorios;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace ServicoAplicacao
@@ -28,7 +26,7 @@ namespace ServicoAplicacao
 
         public DadosEstatisticos ObterDadosEstatisticos()
         {
-            return new DadosEstatisticos(this.ColeacoOperacao.Obter());            
+            return new DadosEstatisticos(this.ColeacoOperacao.Obter());
         }
         public List<HistoricoMensal> ObterDadosEstatisticosPorMes()
         {

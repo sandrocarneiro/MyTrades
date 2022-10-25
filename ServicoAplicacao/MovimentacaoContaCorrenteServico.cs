@@ -3,7 +3,6 @@ using Dominio.Servicos;
 using Infraestrutura.Repositorios;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ServicoAplicacao
 {

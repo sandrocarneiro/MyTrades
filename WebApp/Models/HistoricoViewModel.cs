@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApp.Models
 {
@@ -10,7 +7,7 @@ namespace WebApp.Models
     {
         public string Data { get; set; }
         public string Tipo { get; set; }
-        public bool Negativo{ get; set; }
+        public bool Negativo { get; set; }
         public string Valor { get; set; }
         public string SaldoCorretora { get; set; }
         public HistoricoViewModel(DateTime data, string tipo, decimal valor, decimal saldoCorretora)

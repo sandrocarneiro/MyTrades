@@ -1,15 +1,8 @@
-﻿using Dominio.Entidades;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace WebApp.Models
+﻿namespace WebApp.Models
 {
     public class NotaCorretagemInserirViewModel : NotaCorretagemViewModel
     {
-        public NotaCorretagemInserirViewModel() 
+        public NotaCorretagemInserirViewModel()
         {
             this.Data = System.DateTime.Now;
             this.ContratosNegociados = 2;

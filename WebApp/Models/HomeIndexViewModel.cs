@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApp.Models
 {
@@ -21,7 +20,7 @@ namespace WebApp.Models
         public string QuantidadeGanhos { get; set; }
         public string QuantidadePerdas { get; set; }
         public string RelacaoQuantidadeGanhoPerda { get; set; }
-        public List<KeyValuePair<string, string>> TopGain { get; set; }
+        public List<KeyValuePair<string, decimal>> ResultadoMes { get; set; }
         public List<KeyValuePair<string, string>> TopLoss { get; set; }
 
         public HomeIndexViewModel(int ano, DadosEstatisticos dados)
@@ -38,7 +37,7 @@ namespace WebApp.Models
             this.QuantidadePerdas = String.Format(new CultureInfo("pt-BR"), "{0:0}", dados.QuantidadeDiasPerdas);
             this.RelacaoQuantidadeGanhoPerda = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", dados.RelacaoQuantidadeGanhoPerda);
 
-            this.TopGain = new List<KeyValuePair<string, string>>();
+            this.ResultadoMes = dados.ResultadoMes.OrderByDescending(x => x.Key).ToList();
             //foreach (var item in dados.TopGain)
             //{
             //    this.TopGain.Add(new KeyValuePair<string, string>(item.Key.ToString("dd/MM/yy"), String.Format(new CultureInfo("pt-BR"), "{0:0.00}", item.Value)));

@@ -1,12 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using ServicoAplicacao;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
-using Dominio.Entidades;
-using Microsoft.AspNetCore.Mvc;
-using ServicoAplicacao;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -102,7 +99,7 @@ namespace WebApp.Controllers
             //return hex;
 
 
-            Color corEspec =  value < 0 ? Color.FromArgb(255, 0, 0) : Color.FromArgb(0, 176, 80);
+            Color corEspec = value < 0 ? Color.FromArgb(255, 0, 0) : Color.FromArgb(0, 176, 80);
             string hex = "#" + corEspec.R.ToString("X2") + corEspec.G.ToString("X2") + corEspec.B.ToString("X2");
             return hex;
         }
