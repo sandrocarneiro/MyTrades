@@ -15,7 +15,9 @@ namespace Infraestrutura.Repositorios
         public Contexto()
         {
             // this.ConnectionString = "workstation id = mytrade.mssql.somee.com; packet size = 4096; user id = scarneiro_SQLLogin_1; pwd = j9ydgujmxa; data source = mytrade.mssql.somee.com; persist security info = False; initial catalog = mytrade";
-            this.ConnectionString = "Data Source=C:\\Users\\sandr\\source\\repos\\MyTrades\\Infraestrutura\\mytrades.db;Version=3;";
+            //this.ConnectionString = "Data Source=C:\\Users\\sandr\\source\\repos\\MyTrades\\Infraestrutura\\mytrades.db;Version=3;";
+            this.ConnectionString = "Data Source=C:\\mytrades_webapp\\mytrades.db;Version=3;";
+
         }
 
         #region Historico

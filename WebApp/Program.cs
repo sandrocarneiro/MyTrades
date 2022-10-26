@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace WebApp
 {
@@ -8,6 +9,13 @@ namespace WebApp
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
+
+            var host = new WebHostBuilder()
+                          .UseKestrel()
+                          .UseContentRoot(Directory.GetCurrentDirectory())
+                          .UseIISIntegration()
+                          .UseStartup<Startup>()
+                          .Build();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

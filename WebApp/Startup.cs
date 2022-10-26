@@ -54,7 +54,10 @@ namespace WebApp
                 return next(context);
             });
 
-
+            //services.Configure<IISOptions>(o =>
+            //{
+            //    o.ForwardClientCertificate = false;
+            //});
         }
     }
 }
