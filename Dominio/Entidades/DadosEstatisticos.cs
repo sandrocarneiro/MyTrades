@@ -30,7 +30,7 @@ namespace Dominio.Entidades
             }
         }
 
-        public List<KeyValuePair<string, decimal>> ResultadoMes { get; set; }
+        public List<KeyValuePair<int, decimal>> ResultadoMes { get; set; }
         public List<KeyValuePair<DateTime, decimal>> TopLoss { get; set; }
 
         public DadosEstatisticos(List<Operacao> todasOperacoes)
@@ -54,13 +54,11 @@ namespace Dominio.Entidades
             this.QuantidadeDiasGanhos = resultadosPorDia.Where(x => x.Valor > 0).Count();
             this.QuantidadeDiasPerdas = resultadosPorDia.Where(x => x.Valor < 0).Count();
             this.ResultadoMes = resultadosPorDia.GroupBy(x => x.DataOperacao.Month.ToString())
-                                                               .Select(x => new KeyValuePair<string, decimal>(
-                                                                                            x.First().DataOperacao.Month.ToString("00"),
+                                                               .Select(x => new KeyValuePair<int, decimal>(
+                                                                                            x.First().DataOperacao.Month,
                                                                                             x.Sum(y => y.Valor))
                                                                         )
                                                                .ToList();
-
-
         }
     }
 }

@@ -1,4 +1,9 @@
 ﻿@model WebApp.Models.HomeIndexViewModel
+@using Chart.Mvc.Core.ComplexChart;
+@using Chart.Mvc.Core.Extensions;
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -51,106 +56,43 @@
 </div>
 <br>
 
-<div class="container-fluid bg-3 text-center">
-    <div class="row">
-        <div class="col-sm-6">
-            <p class="p-3 mb-2 bg-info text-white">Resultados por Mês</p>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="text-center">
-                            Mês
-                        </th>
-                        <th class="text-right">
-                            Total
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.ResultadoMes)
-                    {
-                        <tr>
-                            <td class="text-center">
-                                @switch (item.Key)
-                                {
-                                    case "01":
-                                        <span>Janeiro</span>;
-                                        break;
-                                    case "02":
-                                        <span>Fevereiro</span>;
-                                        break;
-                                    case "03":
-                                        <span>Março</span>;
-                                        break;
-                                    case "04":
-                                        <span>Abril</span>;
-                                        break;
-                                    case "05":
-                                        <span>Maio</span>;
-                                        break;
-                                    case "06":
-                                        <span>Junho</span>;
-                                        break;
-                                    case "07":
-                                        <span>Julho</span>;
-                                        break;
-                                    case "08":
-                                        <span>Agosto</span>;
-                                        break;
-                                    case "09":
-                                        <span>Setembro</span>;
-                                        break;
-                                    case "10":
-                                        <span>Outubro</span>;
-                                        break;
-                                    case "11":
-                                        <span>Novembro</span>;
-                                        break;
-                                    case "12":
-                                        <span>Dezembro</span>;
-                                        break;
-                                    default:
-                                        <span>-</span>;
-                                        break;
-                                }
-                            </td>
-                            <td class="text-right" @( Convert.ToDecimal(item.Value) > 0 ? Html.Raw("style='color:blue'") : Html.Raw("style='color:red'") )>
-                                @Html.Label(item.Value.ToString())
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <div class="col-sm-6">
-            @*<p class="p-3 mb-2 bg-info text-white">Top 3 - Loss</p>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="text-center">
-                                Dia
-                            </th>
-                            <th class="text-right">
-                                Valor
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.TopLoss)
-                                        {
-                            <tr>
-                                <td class="text-center">
-                                    @Html.Label(item.Key)
-                                </td>
-                                <td class="text-right">
-                                    @Html.Label(item.Value)
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>*@
-        </div>
-    </div>
-</div>
-<br>
+@{
+    ViewBag.Title = "Home Page";
+    var meses = Model.ResultadoMes.Select(x => x.Key).ToArray();
+    var valores_positivos = Model.ResultadoMes.Select(x => Convert.ToDouble(x.Value) > 0 ? Convert.ToDouble(x.Value) : 0).ToList();
+    var valores_negativos = Model.ResultadoMes.Select(x => Convert.ToDouble(x.Value) < 0 ? Convert.ToDouble(x.Value) : 0).ToList();
 
+    var barChart = new Chart.Mvc.Core.ComplexChart.Bar.BarChart();
+    barChart.ComplexData.Labels.AddRange(meses);
+    barChart.ChartConfiguration.Responsive = true;
+    barChart.ChartConfiguration.MaintainAspectRatio = false;
+
+    barChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>{
+                                      new ComplexDataset {
+                                                              Data = valores_positivos,
+                                                              BackgroundColor = "cornflowerblue",
+                                                              Label="Lucro"
+                                                          }
+                                            });
+
+    barChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>{
+                                      new ComplexDataset {
+                                                              Data = valores_negativos,
+                                                              BackgroundColor = "indianred",
+                                                              Label="Prejuízo"
+                                                          }
+                                            });
+
+}
+<style>
+    #chart-wrapper {
+        display: inline-block;
+        position: relative;
+        height: 300px;
+        width: 100%;
+    }
+</style>
+<div id="chart-wrapper">
+    <canvas id="myCanvas"></canvas>
+</div>
+@Html.CreateChart("myCanvas", barChart)

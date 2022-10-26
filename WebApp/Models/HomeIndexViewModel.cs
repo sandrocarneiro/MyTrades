@@ -8,6 +8,7 @@ namespace WebApp.Models
 {
     public class HomeIndexViewModel
     {
+        public string[] xValues { get; set; }
         public int AnoRefefrencia { get; set; }
         public string SaldoCorretoraAtual { get; set; }
         public string SaldoTradesPeriodo { get; set; }
@@ -21,7 +22,6 @@ namespace WebApp.Models
         public string QuantidadePerdas { get; set; }
         public string RelacaoQuantidadeGanhoPerda { get; set; }
         public List<KeyValuePair<string, decimal>> ResultadoMes { get; set; }
-        public List<KeyValuePair<string, string>> TopLoss { get; set; }
 
         public HomeIndexViewModel(int ano, DadosEstatisticos dados)
         {
@@ -37,18 +37,52 @@ namespace WebApp.Models
             this.QuantidadePerdas = String.Format(new CultureInfo("pt-BR"), "{0:0}", dados.QuantidadeDiasPerdas);
             this.RelacaoQuantidadeGanhoPerda = String.Format(new CultureInfo("pt-BR"), "{0:0.00}", dados.RelacaoQuantidadeGanhoPerda);
 
-            this.ResultadoMes = dados.ResultadoMes.OrderByDescending(x => x.Key).ToList();
-            //foreach (var item in dados.TopGain)
-            //{
-            //    this.TopGain.Add(new KeyValuePair<string, string>(item.Key.ToString("dd/MM/yy"), String.Format(new CultureInfo("pt-BR"), "{0:0.00}", item.Value)));
-            //}
-
-
-            this.TopLoss = new List<KeyValuePair<string, string>>();
-            //foreach (var item in dados.TopLoss)
-            //{
-            //    this.TopLoss.Add(new KeyValuePair<string, string>(item.Key.ToString("dd/MM/yy"), String.Format(new CultureInfo("pt-BR"), "{0:0.00}", item.Value)));
-            //}
+            this.ResultadoMes = new List<KeyValuePair<string, decimal>>();
+            foreach (var item in Enumerable.Range(1, 12).ToList())
+            {
+                var mes = "";
+                switch (item)
+                {
+                    case 1:
+                        mes = "Janeiro";
+                        break;
+                    case 2:
+                        mes = "Fevereiro";
+                        break;
+                    case 3:
+                        mes = "Março";
+                        break;
+                    case 4:
+                        mes = "Abril";
+                        break;
+                    case 5:
+                        mes = "Maio";
+                        break;
+                    case 6:
+                        mes = "Junho";
+                        break;
+                    case 7:
+                        mes = "Julho";
+                        break;
+                    case 8:
+                        mes = "Agosto";
+                        break;
+                    case 9:
+                        mes = "Setembro";
+                        break;
+                    case 10:
+                        mes = "Outubro";
+                        break;
+                    case 11:
+                        mes = "Novembro";
+                        break;
+                    case 12:
+                        mes = "Dezembro";
+                        break;
+                };
+                var valor = dados.ResultadoMes.Where(x => x.Key == item).Select(x => x.Value).SingleOrDefault();
+                this.ResultadoMes.Add(new KeyValuePair<string, decimal>(mes, valor));
+            };
         }
     }
 }
