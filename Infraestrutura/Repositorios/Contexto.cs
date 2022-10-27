@@ -251,6 +251,32 @@ namespace Infraestrutura.Repositorios
             this.SqliteConn.Close();
             return lista;
         }
+        public List<Operacao> CriarColecaoOperacao(int ano)
+        {
+            this.SqliteConn = new SQLiteConnection(ConnectionString);
+            this.SqliteConn.Open();
+            SQLiteCommand sqlite_cmd = this.SqliteConn.CreateCommand();
+            sqlite_cmd.CommandText = "SELECT * FROM Operacao WHERE strftime('%Y', DataOperacao) = @ano ORDER BY DataOperacao, ID";
+            sqlite_cmd.Parameters.AddWithValue("@ano", ano.ToString());
+            SQLiteDataReader dr = sqlite_cmd.ExecuteReader();
+
+            List<Operacao> lista = new List<Operacao>();
+
+            while (dr.Read())
+            {
+                lista.Add(new Operacao(
+                                            this.ObterInteger(dr["ID"]),
+                                            this.ObterDatetime(dr["DataOperacao"]),
+                                            this.ObterDatetime(dr["DataLiquidacao"]),
+                                            this.ObterDecimal(dr["Valor"]),
+                                            this.ObterString(dr["Descricao"])
+                                             )
+                          );
+            }
+            dr.Close();
+            this.SqliteConn.Close();
+            return lista;
+        }
         public void InserirOperacao(DateTime dataOperacao, DateTime dataLiquidacao, Decimal valor, String descricao)
         {
             this.SqliteConn = new SQLiteConnection(ConnectionString);

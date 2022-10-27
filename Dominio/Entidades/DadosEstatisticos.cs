@@ -49,8 +49,8 @@ namespace Dominio.Entidades
 
             this.SaldoCorretoraAtual = todasOperacoes.Sum(x => x.Valor);
             this.SaldoTradesPeriodo = resultadosPorDia.Where(x => x.DataOperacao.Year == DateTime.Now.Year).Sum(x => x.Valor);
-            this.MediaGanhosDia = resultadosPorDia.Where(x => x.Valor > 0).Average(x => x.Valor);
-            this.MediaPerdasDia = resultadosPorDia.Where(x => x.Valor < 0).Average(x => x.Valor);
+            this.MediaGanhosDia = resultadosPorDia.Count == 0 ? 0 : resultadosPorDia.Where(x => x.Valor > 0).Average(x => x.Valor);
+            this.MediaPerdasDia = resultadosPorDia.Count == 0 ? 0 : resultadosPorDia.Where(x => x.Valor < 0).Average(x => x.Valor);
             this.QuantidadeDiasGanhos = resultadosPorDia.Where(x => x.Valor > 0).Count();
             this.QuantidadeDiasPerdas = resultadosPorDia.Where(x => x.Valor < 0).Count();
             this.ResultadoMes = resultadosPorDia.GroupBy(x => x.DataOperacao.Month.ToString())

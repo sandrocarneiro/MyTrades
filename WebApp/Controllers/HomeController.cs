@@ -17,18 +17,15 @@ namespace WebApp.Controllers
             _logger = logger;
             this.HistoricoServico = new HistoricoServico();
         }
-
-        public IActionResult Index()
+        public IActionResult Index(int ano)
         {
-            return View(new HomeIndexViewModel(DateTime.Now.Year, this.HistoricoServico.ObterDadosEstatisticos()));
-            //return RedirectToAction("Index", "Operacao");
+            ano = ano == 0 ? DateTime.Now.Year : ano;
+            return View(new HomeIndexViewModel(ano, this.HistoricoServico.ObterDadosEstatisticos(ano)));
         }
-
         public IActionResult Privacy()
         {
             return View();
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
