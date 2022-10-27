@@ -33,12 +33,11 @@ namespace Dominio.Entidades
         public List<KeyValuePair<int, decimal>> ResultadoMes { get; set; }
         public List<KeyValuePair<DateTime, decimal>> TopLoss { get; set; }
 
-        public DadosEstatisticos(List<Operacao> todasOperacoes)
+        public DadosEstatisticos(int ano, List<Operacao> todasOperacoes)
         {
             var ops = new[] { "DAYTRADE", "EMOLUMENTOS", "REGISTRO", "IRRF" };
-
-            List<ResultadoPorDia> resultadosPorDia = todasOperacoes
-                                                            .Where(x => ops.Contains(x.TipoOperacao))
+            List<ResultadoPorDia> resultadosPorDiaNoPeriodo = todasOperacoes
+                                                            .Where(x => ops.Contains(x.TipoOperacao) && x.DataOperacao.Year == ano)
                                                             .GroupBy(x => x.DataOperacao)
                                                             .Select(x => new ResultadoPorDia
                                                             {
@@ -48,12 +47,12 @@ namespace Dominio.Entidades
                                                             .ToList();
 
             this.SaldoCorretoraAtual = todasOperacoes.Sum(x => x.Valor);
-            this.SaldoTradesPeriodo = resultadosPorDia.Where(x => x.DataOperacao.Year == DateTime.Now.Year).Sum(x => x.Valor);
-            this.MediaGanhosDia = resultadosPorDia.Count == 0 ? 0 : resultadosPorDia.Where(x => x.Valor > 0).Average(x => x.Valor);
-            this.MediaPerdasDia = resultadosPorDia.Count == 0 ? 0 : resultadosPorDia.Where(x => x.Valor < 0).Average(x => x.Valor);
-            this.QuantidadeDiasGanhos = resultadosPorDia.Where(x => x.Valor > 0).Count();
-            this.QuantidadeDiasPerdas = resultadosPorDia.Where(x => x.Valor < 0).Count();
-            this.ResultadoMes = resultadosPorDia.GroupBy(x => x.DataOperacao.Month.ToString())
+            this.SaldoTradesPeriodo = resultadosPorDiaNoPeriodo.Sum(x => x.Valor);
+            this.MediaGanhosDia = resultadosPorDiaNoPeriodo.Count == 0 ? 0 : resultadosPorDiaNoPeriodo.Where(x => x.Valor > 0).Average(x => x.Valor);
+            this.MediaPerdasDia = resultadosPorDiaNoPeriodo.Count == 0 ? 0 : resultadosPorDiaNoPeriodo.Where(x => x.Valor < 0).Average(x => x.Valor);
+            this.QuantidadeDiasGanhos = resultadosPorDiaNoPeriodo.Where(x => x.Valor > 0).Count();
+            this.QuantidadeDiasPerdas = resultadosPorDiaNoPeriodo.Where(x => x.Valor < 0).Count();
+            this.ResultadoMes = resultadosPorDiaNoPeriodo.GroupBy(x => x.DataOperacao.Month.ToString())
                                                                .Select(x => new KeyValuePair<int, decimal>(
                                                                                             x.First().DataOperacao.Month,
                                                                                             x.Sum(y => y.Valor))
