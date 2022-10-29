@@ -7,19 +7,41 @@
 
 <h4>operações por Dia</h4>
 
-@foreach (var item in Model.PeriodosDistintos)
-{
-    <span class="mb-2 bg-light text-dark">
-        @Html.ActionLink(
-            linkText: item.Value,
-            actionName: "ResumoDiario",
-            controllerName: "Operacao",
-            routeValues: new { ano = item.Key.Year, mes = item.Key.Month },
-            htmlAttributes: "")
-    </span>
-    @Html.Raw(" - ");
+<div class="container-fluid bg-3 text-center">
+    <div class="row">
+        @foreach (var item in Model.Anos)
+        {
+            <div class="col-sm-2">
+                <p class="p-3 mb-1 bg-light text-black-50">
+                    @Html.ActionLink(linkText: item.ToString(),
+                                     actionName: "ResumoDiario",
+                                     controllerName: "Operacao",
+                                     routeValues: new { ano = item, mes = 1 },
+                                     htmlAttributes: "")
+                </p>
+            </div>
+        }
 
-}
+    </div>
+    <div class="row">
+        @foreach (var item in Model.PeriodosDistintos)
+        {
+            <div class="col-sm-1">
+                <p class="p-3 mb-12 bg-light text-dark">
+                    @Html.ActionLink(
+                        linkText: item.Value,
+                        actionName: "ResumoDiario",
+                        controllerName: "Operacao",
+                        routeValues: new { ano = item.Key.Year, mes = item.Key.Month },
+                        htmlAttributes: "")
+                </p>
+            </div>
+        }
+    </div>
+    <div class="row">
+        @Model.Periodo
+    </div>
+</div>
 
 <table class="table">
     <thead>

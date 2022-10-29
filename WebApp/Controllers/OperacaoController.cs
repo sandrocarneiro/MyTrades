@@ -46,7 +46,7 @@ namespace WebApp.Controllers
                 ano = DateTime.Now.Year;
                 mes = DateTime.Now.Month;
             }
-            return View(new ResumoDiarioViewModel(this.OperacaoServico.Obter(ano, mes)));
+            return View(new ResumoDiarioViewModel(ano, mes, this.OperacaoServico.Obter(ano, mes)));
         }
     }
 }

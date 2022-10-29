@@ -7,68 +7,113 @@ namespace WebApp.Models
 {
     public class ResumoDiarioViewModel
     {
-        public DateTime DataOperacao { get; set; }
+        public string Periodo { get; set; }
         public decimal Total { get; set; }
         public List<KeyValuePair<DateTime, string>> PeriodosDistintos { get; set; }
         public List<KeyValuePair<DateTime, decimal>> ResultadosPorDia { get; set; }
+        public List<int> Anos { get; set; }
         public ResumoDiarioViewModel() { }
-        public ResumoDiarioViewModel(List<Operacao> operacoes)
+        public ResumoDiarioViewModel(int ano, int mes, List<Operacao> operacoes)
         {
             this.ResultadosPorDia = operacoes.GroupBy(x => x.DataOperacao)
                                              .OrderByDescending(x => x.First().DataOperacao)
                                              .Select(x => new KeyValuePair<DateTime, decimal>(x.First().DataOperacao, x.Sum(y => y.Valor)))
                                              .ToList();
 
+            this.Anos = Enumerable.Range(DateTime.Now.Year - 5, 6).ToList();
 
             this.PeriodosDistintos = new List<KeyValuePair<DateTime, string>>();
-
             DateTime periodo = new DateTime(2016, 1, 1);
-            while(periodo <= DateTime.Now)
+            for (int i = 1; i <= 12; i++)
             {
-                var mes = "";
-                switch (periodo.Month)
+                var nome_mes = "";
+                switch (i)
                 {
                     case 1:
-                        mes = "Jan";
+                        nome_mes = "Jan";
                         break;
                     case 2:
-                        mes = "Fev";
+                        nome_mes = "Fev";
                         break;
                     case 3:
-                        mes = "Mar";
+                        nome_mes = "Mar";
                         break;
                     case 4:
-                        mes = "Abr";
+                        nome_mes = "Abr";
                         break;
                     case 5:
-                        mes = "Mai";
+                        nome_mes = "Mai";
                         break;
                     case 6:
-                        mes = "Jun";
+                        nome_mes = "Jun";
                         break;
                     case 7:
-                        mes = "Jul";
+                        nome_mes = "Jul";
                         break;
                     case 8:
-                        mes = "Ago";
+                        nome_mes = "Ago";
                         break;
                     case 9:
-                        mes = "Set";
+                        nome_mes = "Set";
                         break;
                     case 10:
-                        mes = "Out";
+                        nome_mes = "Out";
                         break;
                     case 11:
-                        mes = "Nov";
+                        nome_mes = "Nov";
                         break;
                     case 12:
-                        mes = "Dez";
+                        nome_mes = "Dez";
                         break;
                 };
 
-                PeriodosDistintos.Add(new KeyValuePair<DateTime, string>(new DateTime(periodo.Year, periodo.Month, 1), mes + "/" + periodo.Year.ToString()));
+                PeriodosDistintos.Add(new KeyValuePair<DateTime, string>(new DateTime(ano, i, 1), nome_mes));
                 periodo = periodo.AddMonths(1);
             };
+
+
+            var mes_periodo = "";
+            switch (mes)
+            {
+                case 1:
+                    mes_periodo = "Jan";
+                    break;
+                case 2:
+                    mes_periodo = "Fev";
+                    break;
+                case 3:
+                    mes_periodo = "Mar";
+                    break;
+                case 4:
+                    mes_periodo = "Abr";
+                    break;
+                case 5:
+                    mes_periodo = "Mai";
+                    break;
+                case 6:
+                    mes_periodo = "Jun";
+                    break;
+                case 7:
+                    mes_periodo = "Jul";
+                    break;
+                case 8:
+                    mes_periodo = "Ago";
+                    break;
+                case 9:
+                    mes_periodo = "Set";
+                    break;
+                case 10:
+                    mes_periodo = "Out";
+                    break;
+                case 11:
+                    mes_periodo = "Nov";
+                    break;
+                case 12:
+                    mes_periodo = "Dez";
+                    break;
+            };
+            this.Periodo = mes_periodo + "/" + ano.ToString();
+
         }
     }
 }
