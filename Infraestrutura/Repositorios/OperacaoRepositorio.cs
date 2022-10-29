@@ -22,6 +22,11 @@ namespace Infraestrutura.Repositorios
             return this.UnidadeTrabalho.CriarColecaoOperacao(ano)
                        .ToList();
         }
+        public List<Operacao> Obter(int ano, int mes)
+        {
+            return this.UnidadeTrabalho.CriarColecaoOperacao(ano, mes)
+                       .ToList();
+        }
         public void Importar(List<string> operacoes)
         {
             List<DateTime> datasOperacoes = new List<DateTime>();

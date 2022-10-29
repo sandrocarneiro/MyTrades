@@ -1,11 +1,25 @@
-﻿@model IEnumerable<WebApp.Models.ResumoDiarioViewModel>
+﻿@model WebApp.Models.ResumoDiarioViewModel
 
 @{
     ViewData["Title"] = "Histórico";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h4>Histórico</h4>
+<h4>operações por Dia</h4>
+
+@foreach (var item in Model.PeriodosDistintos)
+{
+    <span class="mb-2 bg-light text-dark">
+        @Html.ActionLink(
+            linkText: item.Value,
+            actionName: "ResumoDiario",
+            controllerName: "Operacao",
+            routeValues: new { ano = item.Key.Year, mes = item.Key.Month },
+            htmlAttributes: "")
+    </span>
+    @Html.Raw(" - ");
+
+}
 
 <table class="table">
     <thead>
@@ -15,14 +29,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (ResumoDiarioViewModel item in Model)
+        @foreach (var item in Model.ResultadosPorDia)
         {
             <tr>
                 <td class="text-center">
-                    @Html.Label(item.DataOperacao.ToString("dd/MM/yyyy"))
+                    @Html.Label(item.Key.ToString("dd/MM/yyyy"))
                 </td>
-                <td class="text-right" @( Convert.ToDecimal(item.Total) > 0 ? Html.Raw("style='color:blue'") : Html.Raw("style='color:red'") )>
-                    @Html.Label(String.Format("{0: #, ##0.00; (#,##0.00)} ", item.Total))
+                <td class="text-right" @( Convert.ToDecimal(item.Value) > 0 ? Html.Raw("style='color:blue'") : Html.Raw("style='color:red'") )>
+                    @Html.Label(String.Format("{0: #, ##0.00; (#,##0.00)} ", item.Value))
                 </td>
             </tr>
         }

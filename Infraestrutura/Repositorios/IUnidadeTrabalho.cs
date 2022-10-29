@@ -9,6 +9,7 @@ namespace Infraestrutura.Repositorios
         List<NotaCorretagem> CriarColecaoNotaCorretagem();
         List<Historico> CriarColecaoHistorico();
         List<MovimentacaoContaCorrente> CriarColecaoMovimentacaoContaCorrente();
+        List<Operacao> CriarColecaoOperacao(int ano, int mes);
         List<Operacao> CriarColecaoOperacao(int ano);
         List<Operacao> CriarColecaoOperacao();
         void Atualizar(List<Historico> listaHistorico);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServicoAplicacao;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -38,15 +39,14 @@ namespace WebApp.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult ResumoDiario()
+        public IActionResult ResumoDiario(int ano, int mes)
         {
-            return View(this.OperacaoServico.Obter()
-                                            .GroupBy(x => x.DataOperacao)
-                                            .OrderByDescending(x => x.First().DataOperacao)
-                                            .Select(x => new ResumoDiarioViewModel(x.First().DataOperacao, x.Sum(y => y.Valor)))
-                                            .ToList()
-                                            );
-
+            if (ano == 0 || mes == 0)
+            {
+                ano = DateTime.Now.Year;
+                mes = DateTime.Now.Month;
+            }
+            return View(new ResumoDiarioViewModel(this.OperacaoServico.Obter(ano, mes)));
         }
     }
 }

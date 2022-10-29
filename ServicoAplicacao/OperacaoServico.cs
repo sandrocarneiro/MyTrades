@@ -17,6 +17,10 @@ namespace ServicoAplicacao
         {
             return this.ColecaoOperacao.Obter();
         }
+        public List<Operacao> Obter(int ano, int mes)
+        {
+            return this.ColecaoOperacao.Obter(ano, mes);
+        }
 
         public void Importar(List<string> operacoes)
         {
