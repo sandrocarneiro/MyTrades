@@ -48,8 +48,8 @@ namespace Dominio.Entidades
 
             this.SaldoCorretoraAtual = todasOperacoes.Sum(x => x.Valor);
             this.SaldoTradesPeriodo = resultadosPorDiaNoPeriodo.Sum(x => x.Valor);
-            this.MediaGanhosDia = resultadosPorDiaNoPeriodo.Count == 0 ? 0 : resultadosPorDiaNoPeriodo.Where(x => x.Valor > 0).Average(x => x.Valor);
-            this.MediaPerdasDia = resultadosPorDiaNoPeriodo.Count == 0 ? 0 : resultadosPorDiaNoPeriodo.Where(x => x.Valor < 0).Average(x => x.Valor);
+            this.MediaGanhosDia = resultadosPorDiaNoPeriodo.Where(x => x.Valor > 0).Count() == 0 ? 0 : resultadosPorDiaNoPeriodo.Where(x => x.Valor > 0).Average(x => x.Valor);
+            this.MediaPerdasDia = resultadosPorDiaNoPeriodo.Where(x => x.Valor < 0).Count() == 0 ? 0 : resultadosPorDiaNoPeriodo.Where(x => x.Valor < 0).Average(x => x.Valor);
             this.QuantidadeDiasGanhos = resultadosPorDiaNoPeriodo.Where(x => x.Valor > 0).Count();
             this.QuantidadeDiasPerdas = resultadosPorDiaNoPeriodo.Where(x => x.Valor < 0).Count();
             this.ResultadoMes = resultadosPorDiaNoPeriodo.GroupBy(x => x.DataOperacao.Month.ToString())
